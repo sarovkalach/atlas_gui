@@ -6,7 +6,11 @@ BookmarkWidget::BookmarkWidget(QWidget *pwgt): QWidget(pwgt) {
 
     bookmarkTableModel = new BookmarkTableModel;
     bookmarkView = new BookmarkView;
-    bookmarkView->horizontalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+#if (QT_VERSION >= QT_VERSION_CHECK(5,7,1))
+	bookmarkView->horizontalHeader()->sectionResizeMode( QHeaderView::ResizeToContents );
+#else
+	bookmarkView->horizontalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+#endif
     bookmarkLayout = new QVBoxLayout;
     buttonsLayout = new QHBoxLayout;
 
