@@ -13,6 +13,7 @@ QT += testlib
 INCLUDEPATH += ./src
 INCLUDEPATH += ./include
 INCLUDEPATH += ./languages
+INCLUDEPATH += ./ui
 
 HEADERS += include/bookmarktablemodel.h \
            include/bookmarkview.h \
@@ -40,7 +41,7 @@ HEADERS += include/bookmarktablemodel.h \
     include/glossary.h \
     include/simulatorstarter.h \
     include/noteview.h
-FORMS += mainwindow.ui
+FORMS += ui/mainwindow.ui
 SOURCES += src/bookmarktablemodel.cpp \
            src/bookmarkview.cpp \
            src/bookmarkwidget.cpp \
