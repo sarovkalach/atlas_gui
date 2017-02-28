@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = atlas
 DEPENDPATH += .
 INCLUDEPATH += .
-QT += sql
+QT += sql widgets
 QT += testlib
 
 # Input
