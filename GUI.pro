@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = atlas
 DEPENDPATH += .
 INCLUDEPATH += .
 QT += sql
