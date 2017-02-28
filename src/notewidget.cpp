@@ -7,7 +7,11 @@ NoteWidget::NoteWidget(QWidget *pwgt): QWidget(pwgt) {
     noteModel = new NoteTableModel;
     noteView = new NoteView;
     noteView->setModel(noteModel);
-    noteView->horizontalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+#if (QT_VERSION >= QT_VERSION_CHECK(5,7,1))
+	noteView->horizontalHeader()->sectionResizeMode( QHeaderView::ResizeToContents );
+#else
+	noteView->horizontalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+#endif
 
     noteNameLineEdit = new QLineEdit;
     noteContentLineEdit = new QLineEdit;
