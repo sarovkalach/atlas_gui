@@ -9,6 +9,7 @@
 #include "filetotabwidget.h"
 #include <QProcess>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QDialog>
 #include <QLineEdit>								//УБРАТЬ КНОПКУ ЗАПУСКА ПРОГРАММЫ, ИМЯ ДАМП И OUT ФАЙЛОВ
 
