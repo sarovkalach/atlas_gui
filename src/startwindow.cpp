@@ -46,7 +46,7 @@ void StartWindow::startUp() {
     //main->hide();
     this->close();
 
-    if ( file.exists() ) {
+    if ( file.exists() && file.size() > 0 ) {
         QString login;
         QString password;;
         QString hash;

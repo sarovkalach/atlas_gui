@@ -188,25 +188,23 @@ void UserView::saveSessionSlot(const QString& login,  const QString& pass, Simul
     // get hash from (login + pass)
     QString hash = QString(QCryptographicHash::hash(((login + pass + "⁠⁠⁠HerVamVsem")).toStdString().c_str(),QCryptographicHash::Md5).toHex());
 
-
-    if ( !file.exists() ) {
-
+    if ( file.exists() && file.size() > 0) {
+        file.open(QIODevice::ReadWrite);
+        while ( !file.atEnd()) {
+           QString tmp = file.readLine();
+            tmp = tmp.remove(tmp.size()-1, 1);
+            if ( tmp == hash )
+                emit updateTopWidget();
+        }
+        if ( mark )
+            writeAccount(file, login, pass, hash);
+    } else {
         file.open(QIODevice::ReadWrite);
         if ( mark )
             writeAccount(file, login, pass, hash);
         emit updateTopWidget();
-    } else {
-        file.open(QIODevice::ReadWrite);
-        while ( !file.atEnd()) {
-            QString tmp = file.readLine();
-            tmp = tmp.remove(tmp.size()-1, 1);
-            if ( tmp == hash )
-                emit updateTopWidget();
-           }
-        if ( mark )
-            writeAccount(file, login, pass, hash);
     }
-
+    qDebug() << this << endl;
 }
 
 void UserView::writeAccount(QFile &file, QString login, QString pass, QString hash) {
