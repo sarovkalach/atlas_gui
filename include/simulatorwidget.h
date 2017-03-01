@@ -25,7 +25,7 @@
 #include "simulatortableview.h"
 #include "simulatortablemodel.h"
 #include "simulatorstarter.h"
-#include "notepadwidget.h"
+#include "shell.h"
 
 /*!
  *  \~russian \brief Виджет для работы с таблицей "Моделирование" сверхбольшого высокодоступного цифрового каталога данных (Каталога). Явялется составялющей частью копоненты 3d Атласа "Глоссарий"
@@ -55,8 +55,9 @@ private:
     QPushButton* deleteButton;
     QSqlQuery query;
     QSqlQueryModel queryModel;
-    NotepadWidget* notepad;
+    SimpleArtificialShell* shell;
     SimulatorStarter* simulator;
+
     int owner;
     int id;
 
@@ -72,7 +73,7 @@ public slots:
     //! \~russian Метод отвечающий за получение id симулятора из таблицы atlas.simulator, фильтрация которого происходит по полю  reference\~russian
     int  getSimulatorID(QString simulatorName);
     //! \~russian Метод отвечающий за открытие файла конфигурации  \~russian
-    void openConfigFile();
+   //void openConfigFile();
     //! \~russian Метод отвечающий за запуск симулятора моделирования  \~russian
     void startExpirement();
    //! \~russian Метод отвечающий за вставку записи в таблицу atlas.simulator  \~russian
@@ -86,7 +87,7 @@ public slots:
     //! \~russian Метод отвечающий отображения виджета NotepadWidget  \~russian
     void openNotepad();
     //! \~russian Метод отвечающий получения имени файла открытого в  NotepadWidget  \~russian
-    void setFilenamefromNotepad(QString fielname);
+    //void setFilenamefromNotepad(QString fielname);
     //! \~russian Метод отвечающий за остановку симулятора моделирования  \~russian
     void stopExperiment();
 };

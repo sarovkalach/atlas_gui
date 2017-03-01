@@ -94,7 +94,7 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
     QString hashAccount;
 
     connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
-    QFile file("/home/kalach/Qt/GUI/myfile.txt");
+    QFile file("myfile.txt");
 
     if( file.open(QIODevice::ReadOnly) ) {
 
@@ -183,7 +183,7 @@ void UserView::editID(const QString& login) {
 void UserView::saveSessionSlot(const QString& login,  const QString& pass, SimulatorWidget* simulatorWidget) {
 
     connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
-    QFile file("/home/kalach/Qt/GUI/myfile.txt");
+    QFile file("myfile.txt");
 
     // get hash from (login + pass)
     QString hash = QString(QCryptographicHash::hash(((login + pass + "⁠⁠⁠HerVamVsem")).toStdString().c_str(),QCryptographicHash::Md5).toHex());

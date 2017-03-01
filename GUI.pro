@@ -14,6 +14,7 @@ INCLUDEPATH += ./src
 INCLUDEPATH += ./include
 INCLUDEPATH += ./languages
 INCLUDEPATH += ./ui
+QMAKE_CXX_FLAGS += -std=c++11
 
 HEADERS += include/bookmarktablemodel.h \
            include/bookmarkview.h \
@@ -25,7 +26,6 @@ HEADERS += include/bookmarktablemodel.h \
            include/historyview.h \
            include/historywidget.h \
            include/mainwindow.h \
-           include/notepadwidget.h \
            include/notetablemodel.h \
            include/notewidget.h \
            include/startwindow.h \
@@ -40,7 +40,10 @@ HEADERS += include/bookmarktablemodel.h \
     include/simulatorwidget.h \
     include/glossary.h \
     include/simulatorstarter.h \
-    include/noteview.h
+    include/noteview.h \
+    include/filetotabwidget.h \
+    include/printelement.h \
+    include/shell.h
 FORMS += ui/mainwindow.ui
 SOURCES += src/bookmarktablemodel.cpp \
            src/bookmarkview.cpp \
@@ -53,9 +56,7 @@ SOURCES += src/bookmarktablemodel.cpp \
            src/historywidget.cpp \
            src/main.cpp \
            src/mainwindow.cpp \
-           src/notepadwidget.cpp \
            src/notetablemodel.cpp \
-           src/notewidget.cpp \
            src/startwindow.cpp \
            src/usertablemodel.cpp \
            src/userview.cpp \
@@ -68,6 +69,10 @@ SOURCES += src/bookmarktablemodel.cpp \
     src/glossary.cpp \
     src/simulatorstarter.cpp \
     src/noteview.cpp \
-    src/integratetablemodel.cpp
+    src/integratetablemodel.cpp \
+    src/filetotabwidget.cpp \
+    src/printelement.cpp \
+    src/shell.cpp \
+    src/notewidget.cpp
 TRANSLATIONS += languges/main_ru.ts \
                 languges/main_en.ts

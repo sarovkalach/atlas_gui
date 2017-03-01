@@ -6,21 +6,18 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     model = new SimulatorTableModel;
     view = new SimulatorTableView;
     view->setModel(model);
+    view->setEditTriggers(QTableView::NoEditTriggers);  // read only view
 
     owner = 1;                      // ID from StartWindow
 
     simulator = new SimulatorStarter;
     showModellingtableModel(owner);
-    notepad = new NotepadWidget;
-    notepad->hide();
-
+    shell = new SimpleArtificialShell;
     modellingLabel = new QLabel;
     modellingVLayout = new QVBoxLayout;
     modellingHLayout = new QHBoxLayout;
     buttonsLayout = new QHBoxLayout;
     modellingComboBox = new QComboBox;
-    modellingLineEdit = new  QLineEdit;
-    loadConfigrButton = new QPushButton;
     editConfigButton = new QPushButton;
     startButton = new QPushButton;
     stopButton = new QPushButton;
@@ -31,7 +28,6 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     simulatorTable->select();
 
     modellingLabel->setText(tr("Set simulator"));
-    loadConfigrButton->setText(tr("Load config"));
     editConfigButton->setText(tr("Notepad"));
     startButton->setText(tr("Start"));
     stopButton->setText(tr("Stop"));
@@ -42,23 +38,20 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
 
     modellingVLayout->addWidget(modellingLabel);
     modellingVLayout->addWidget(modellingComboBox);
-    modellingHLayout->addWidget(modellingLineEdit);
-    modellingHLayout->addWidget(loadConfigrButton);
+
     modellingVLayout->addLayout(modellingHLayout);
     buttonsLayout->addWidget(startButton);
     buttonsLayout->addWidget(stopButton);
     buttonsLayout->addWidget(deleteButton);
     buttonsLayout->addWidget(editConfigButton);
     modellingVLayout->addLayout(buttonsLayout);
+    modellingVLayout->addWidget(shell);
     modellingVLayout->addWidget(view);
-    modellingVLayout->addWidget(notepad);
-    notepad->hide();
-
-    connect(loadConfigrButton, SIGNAL(clicked(bool)), this, SLOT(openConfigFile()));
+    shell->hide();
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(startExpirement()));
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(insertRow()));
     connect(deleteButton, SIGNAL(clicked(bool)), this, SLOT(removeRow()));
-    connect(editConfigButton,SIGNAL(clicked(bool)),this,SLOT(openNotepad()));
+    connect(editConfigButton,SIGNAL(clicked(bool)), this,SLOT(openNotepad()));
     connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stopExperiment()));
     this->setLayout(modellingVLayout);
 
@@ -92,7 +85,7 @@ void SimulatorWidget::insertRow()
     query.prepare("INSERT INTO atlas.modelling (owner, beg_date, simulator_id, beg_file, description, progress) VALUES (:owner, :beg_date, :simulator_id, :beg_file, :description, :progress)");//
     query.bindValue(":owner", owner);
     query.bindValue(":beg_date", dateTime->currentDateTime().toString("MM.dd.yyyy"));
-    query.bindValue(":beg_file", modellingLineEdit->text());
+    //query.bindValue(":beg_file", modellingLineEdit->text());
     query.bindValue(":description", "test");
     query.bindValue(":progress", 1);
     query.bindValue(":simulator_id", id);
@@ -134,30 +127,6 @@ int SimulatorWidget::getSimulatorID(QString simulatorName)
 }
 
 
-void SimulatorWidget::openConfigFile()
-{
-    QFont font("", 0);
-    QFontMetrics fm(font);
-
-    modellingFileDialog = new QFileDialog;
-    QString fileDir = modellingFileDialog->getOpenFileName(this, "Select  file", QDir::homePath());
-    modellingLineEdit->setText(fileDir);
-
-    if (fileDir != "") {
-        int pixelsWide = fm.width(fileDir); // automatic resize QlineEdit
-        int pixelsHigh = fm.height();
-
-        modellingLineEdit->setFixedSize(pixelsWide, pixelsHigh + 1);
-    }
-    connect(this,SIGNAL(setFile(QString)), notepad,SLOT(openFile(QString)));
-    if (fileDir != "")
-        emit setFile(fileDir);
-}
-
-
-void SimulatorWidget::setFilenamefromNotepad(QString fielname) {
-    modellingLineEdit->setText(fielname);
-}
 
 void SimulatorWidget::removeRow()
 {
@@ -174,7 +143,7 @@ void SimulatorWidget::removeRow()
 
 
 void SimulatorWidget::openNotepad() {
-    notepad->show();
+    shell->show();
 }
 
 

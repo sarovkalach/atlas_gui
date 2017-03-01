@@ -9,10 +9,7 @@ IntegrateWidget::IntegrateWidget(QWidget* pwgt) : QWidget(pwgt)
     view->setModel(model);
 
     owner = 1;                      // ID from StartWindow
-
     showIntegrateTableModel(owner);
-    notepad = new NotepadWidget;
-    notepad->hide();
 
     modellingLabel = new QLabel;
     modellingVLayout = new QVBoxLayout;

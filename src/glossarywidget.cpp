@@ -11,7 +11,7 @@ GlossaryWidget::GlossaryWidget(QWidget *pwgt) : QWidget(pwgt) {
 
     glossModel = new GlossaryTableModel;
     glossTableview->setModel(glossModel);
-#if (QT_VERSION >= QT_VERSION_CHECK(5,7,1))
+#if (QT_VERSION >= QT_VERSION_CHECK(5,7,0))
 	glossTableview->verticalHeader()->sectionResizeMode(QHeaderView::ResizeToContents);
 	glossTableview->horizontalHeader()->sectionResizeMode(QHeaderView::ResizeToContents);
 #else

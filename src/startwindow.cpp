@@ -40,7 +40,7 @@ void StartWindow::setApp(QApplication *applictaion) {
 void StartWindow::startUp() {
 
     language = languageComboBox->currentText();
-    QFile file("/home/kalach/Qt/GUI/myfile.txt");
+    QFile file("myfile.txt");
     setLanguage(language);
     main = new MainWindow;
     //main->hide();
