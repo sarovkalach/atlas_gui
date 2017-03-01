@@ -82,7 +82,7 @@ void SimulatorWidget::insertRow()
     query.prepare("INSERT INTO atlas.modelling (owner, beg_date, simulator_id, beg_file, description, progress) VALUES (:owner, :beg_date, :simulator_id, :beg_file, :description, :progress)");//
     query.bindValue(":owner", owner);
     query.bindValue(":beg_date", dateTime->currentDateTime().toString("MM.dd.yyyy"));
-    //query.bindValue(":beg_file", modellingLineEdit->text());
+	query.bindValue(":beg_file", "her");
     query.bindValue(":description", "test");
     query.bindValue(":progress", 1);
     query.bindValue(":simulator_id", id);
