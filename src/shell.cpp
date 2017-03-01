@@ -3,7 +3,27 @@
 //------------------ SimpleArtificialShell
 
 void SimpleArtificialShell::chooseFileForEditing(){
-	QString str = QFileDialog::getOpenFileName(0, "Choose in-file");
+//	QString str = QFileDialog::getOpenFileName(0, "Choose in-file");
+	QString str = QFileDialog::getSaveFileName(0, "Choose in-file");
+
+	ifstream fin;
+	fin.open(str.toStdString().c_str(), ios::in);
+	if (!fin.is_open()){
+		//не можем открыть файл, т.к. его нет => создаем пустой файл.
+		fin.close();
+
+		ofstream fout;
+		fout.open(str.toStdString().c_str(), ios::out);
+		if (!fout.is_open()){
+			QMessageBox::critical(0, "Attention", "Can\'t create file with name:\n" + str + "\nmay be you forgot to create folders?");
+		}
+
+		fout.close();
+	}
+	else{
+		fin.close();
+	}
+
 	inFileLab_->setText(str);
 }
 void SimpleArtificialShell::openFileForEditing(QString str){
