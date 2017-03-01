@@ -37,26 +37,27 @@
 class SimulatorWidget: public QWidget {
     Q_OBJECT
 private:
-    QVBoxLayout* modellingVLayout;
-    QHBoxLayout* modellingHLayout;
-    QHBoxLayout* buttonsLayout;
-    QComboBox*   modellingComboBox;
-    QLabel*      modellingLabel;
-    QLineEdit*   modellingLineEdit;
-    QPushButton* loadConfigrButton;
-    QPushButton* editConfigButton;
-    QFileDialog*     modellingFileDialog;
-    SimulatorTableModel* model;
+    QVBoxLayout*    modellingVLayout;
+    QHBoxLayout*    modellingHLayout;
+    QHBoxLayout*    buttonsLayout;
+    QComboBox*      modellingComboBox;
+    QLabel*         modellingLabel;
+    QPushButton*    loadConfigrButton;
+    QPushButton*    editConfigButton;
+
+    QFileDialog*            modellingFileDialog;
+    SimulatorTableModel*    model;
     SimulatorTableView* view;
     QSqlRelationalTableModel* simulatorTable;
-    QString simulatorName;
-    QPushButton* startButton;
-    QPushButton* stopButton;
-    QPushButton* deleteButton;
-    QSqlQuery query;
-    QSqlQueryModel queryModel;
-    SimpleArtificialShell* shell;
-    SimulatorStarter* simulator;
+
+    QString         simulatorName;
+    QPushButton*    startButton;
+    QPushButton*    stopButton;
+    QSqlQuery       query;
+    QSqlQueryModel  queryModel;
+
+    SimpleArtificialShell*  shell;
+    SimulatorStarter*       simulator;
 
     int owner;
     int id;
@@ -78,8 +79,6 @@ public slots:
     void startExpirement();
    //! \~russian Метод отвечающий за вставку записи в таблицу atlas.simulator  \~russian
     void insertRow();
-   //! \~russian Метод отвечающий за удаление записи в таблицу atlas.simulator  \~russian
-    void removeRow();
     //! \~russian Метод отвечающий за отображение таблицы atlas.modelling, связанной с таблицей atlas.simulator и фильтрующий записи по полю owner   \~russian
     void showModellingtableModel(int idOwner);
     //! \~russian Метод отвечающий за перерисовку виджета после его изменения  \~russian

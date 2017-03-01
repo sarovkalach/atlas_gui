@@ -20,9 +20,9 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     modellingComboBox = new QComboBox;
     editConfigButton = new QPushButton;
     startButton = new QPushButton;
+    startButton->setDisabled(true);
     stopButton = new QPushButton;
-    deleteButton = new QPushButton;
-
+    stopButton->setDisabled(true);
     simulatorTable = new QSqlRelationalTableModel;
     simulatorTable->setTable("atlas.simulator");
     simulatorTable->select();
@@ -31,7 +31,6 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     editConfigButton->setText(tr("Notepad"));
     startButton->setText(tr("Start"));
     stopButton->setText(tr("Stop"));
-    deleteButton->setText(tr("Delete"));
 
     for (int i=0; i < simulatorTable->rowCount(); i++ )
          modellingComboBox->addItem(simulatorTable->data(simulatorTable->index(i,2)).toString());
@@ -42,7 +41,6 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     modellingVLayout->addLayout(modellingHLayout);
     buttonsLayout->addWidget(startButton);
     buttonsLayout->addWidget(stopButton);
-    buttonsLayout->addWidget(deleteButton);
     buttonsLayout->addWidget(editConfigButton);
     modellingVLayout->addLayout(buttonsLayout);
     modellingVLayout->addWidget(shell);
@@ -50,7 +48,6 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     shell->hide();
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(startExpirement()));
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(insertRow()));
-    connect(deleteButton, SIGNAL(clicked(bool)), this, SLOT(removeRow()));
     connect(editConfigButton,SIGNAL(clicked(bool)), this,SLOT(openNotepad()));
     connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stopExperiment()));
     this->setLayout(modellingVLayout);
@@ -94,7 +91,6 @@ void SimulatorWidget::insertRow()
     showModellingtableModel(owner);
 }
 
-
 void SimulatorWidget::showModellingtableModel(const int idOwner)
 {
     owner = idOwner;
@@ -125,22 +121,6 @@ int SimulatorWidget::getSimulatorID(QString simulatorName)
 
     return queryModel.data(queryModel.index(0,0)).toInt();
 }
-
-
-
-void SimulatorWidget::removeRow()
-{
-    qDebug() << "Row removed";
-    QModelIndexList indexes = view->selectionModel()->selectedIndexes();
-
-    int countRow = indexes.count();
-    for( int i = countRow; i > 0; i--) {
-           model->removeRow( indexes.at(i-1).row(), QModelIndex());
-    };
-    model->submitAll();
-    showModellingtableModel(owner);
-}
-
 
 void SimulatorWidget::openNotepad() {
     shell->show();
