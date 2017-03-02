@@ -43,12 +43,12 @@ private:
 	fttw::OutSideWidget *fileToTab_ {nullptr};
 	//! Главный менеджер расстановки для данного виджета.
 	QVBoxLayout *mL_;
-
 	//! Менеджер расстановки для текстового редактора (название входного файла) и кнопки.
 	QHBoxLayout *buttonLayout_;
 	//! Кнопка для открытия файла.
 	QPushButton *openFileButton_;
-
+    //! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
+    QLineEdit* inFileLab_;
 	//! Проверяет, существует ли файл. Если не существует, то создает новый пустой файл.
 	void checkExistenceAndCreateIfNot(const QString& filename) const;
 
@@ -58,8 +58,7 @@ public:
 	//! Деструктор.
 	~SimpleArtificialShell() {}
 
-    //! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
-    QLineEdit* inFileLab_;
+
 	//! Возвращает главный виджет с текстовым редактором и его кнопками. \details Читает защищенное поле fileToTab_. fileToTab_ можно менять.
 	fttw::OutSideWidget* get_OutsideFileToTabWidget() {return fileToTab_;}
 	//! Возвращает главный виджет с текстовым редактором и его кнопками. \details Читает защищенное поле fileToTab_. fileToTab_ нельзя менять.

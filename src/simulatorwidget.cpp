@@ -55,7 +55,7 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     shell->setParent(this);
 
     //connect(line, SIGNAL(textEdited(QString)), this, SLOT(enableButtons(QString)));
-    connect(shell->inFileLab_, SIGNAL(textChanged(QString)), this, SLOT(enableButtons(QString)));
+    connect(shell->get_inFileLineEditor(), SIGNAL(textChanged(QString)), this, SLOT(enableButtons(QString)));
 }
 
 
