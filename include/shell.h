@@ -52,8 +52,8 @@ private:
 	//! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
 	QLineEdit* inFileLab_;
 
-	//! Проверяет, существует ли файл. Если не существует, то создает новый пустой файл.
-	void checkExistenceAndCreateIfNot(const QString& filename) const;
+	//! Проверяет, существует ли файл. Если не существует, то создает новый пустой файл. Если файл создать не удалось, то возвращает false. Во всех остальных случаях возвращает true.
+	bool checkExistenceAndCreateIfNot(const QString& filename) const;
 
 public:
 	//! Конструктор.
