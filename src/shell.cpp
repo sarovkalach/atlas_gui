@@ -20,9 +20,7 @@ SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
     setLayout(mL_);
 }
 
-
-void SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename) const{
-
+bool SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename) const{
 	ifstream fin;
 	fin.open(filename.toStdString().c_str(), ios::in);
 	if (!fin.is_open()){
@@ -31,9 +29,10 @@ void SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename
 
 		ofstream fout;
 		fout.open(filename.toStdString().c_str(), ios::out);
-		if (!fout.is_open()){
+		if (!fout.is_open()){			//не можем создать файл, т.к., скорее всего, нет либо прав доступа, либо нет папки, в которой файл должен лежать.
 			fttw::print_mistakeLite(fttw::toStr(__FUNCTION__)+"(const QString&)", __LINE__, __FILE__, "Can\'t create file with name:\n" + filename.toStdString() + "\nmay be you forgot to create folders?\n");
-			QMessageBox::critical(0, "Attention", "Can\'t create file with name:\n" + filename + "\nmay be you forgot to create folders?");
+			QMessageBox::warning(0, "Attention", "Can\'t create file with name:\n" + filename + "\nmay be you forgot to create folders or you have no permission to create file in this folder?");
+			return false;
 		}
 
 		fout.close();
@@ -41,14 +40,14 @@ void SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename
 	else{
 		fin.close();
 	}
+	return true;
 }
 
 
 void SimpleArtificialShell::chooseFileForEditing(){
-//	QString str = QFileDialog::getOpenFileName(0, "Choose in-file");
 	QString str = QFileDialog::getSaveFileName(0, "Choose in-file");
-	checkExistenceAndCreateIfNot(str);
-	inFileLab_->setText(str);
+	if (checkExistenceAndCreateIfNot(str))
+		inFileLab_->setText(str);
 }
 
 
@@ -68,8 +67,8 @@ void SimpleArtificialShell::openFileForEditing(QString str){
 
 void SimpleArtificialShell::openFileForEditingWithLineEditor(const QString& str){
 	if (str != inFileLab_->text()){
-		checkExistenceAndCreateIfNot(str);
-		inFileLab_->setText(str);
+		if (checkExistenceAndCreateIfNot(str))
+			inFileLab_->setText(str);
 	}
 }
 
