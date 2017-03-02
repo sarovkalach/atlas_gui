@@ -67,7 +67,6 @@ void StartWindow::startUp() {
             hash = file.readLine();
             hash = hash.remove(hash.size()-1, 1);
 
-            qDebug() << login << "|" << password << endl;
             main->showWidget(hash, login);
         }
 
@@ -79,9 +78,9 @@ void StartWindow::startUp() {
 }
 void StartWindow::setLanguage(const QString lang) {
     if (lang == "Russian")
-        translator->load("/home/kalach/Qt/GUI/languages/main_ru.qm");
+        translator->load("/home/kalach/Qt/atlas_gui/languages/main_ru.qm");
     else
-        translator->load("/home/kalach/Qt/GUI/languages/main_en.qm");
+        translator->load("/home/kalach/Qt/atlas_gui/languages/main_en.qm");
 
     app->installTranslator(translator);
 

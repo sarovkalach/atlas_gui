@@ -11,7 +11,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDialog>
-#include <QLineEdit>								//УБРАТЬ КНОПКУ ЗАПУСКА ПРОГРАММЫ, ИМЯ ДАМП И OUT ФАЙЛОВ
+#include <QLineEdit>
 
 /*! \brief Виджет для открытия файла в специальном редакторе.
  *
@@ -49,18 +49,17 @@ private:
 	//! Кнопка для открытия файла.
 	QPushButton *openFileButton_;
 
-	//! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
-	QLineEdit* inFileLab_;
-
 	//! Проверяет, существует ли файл. Если не существует, то создает новый пустой файл. Если файл создать не удалось, то возвращает false. Во всех остальных случаях возвращает true.
 	bool checkExistenceAndCreateIfNot(const QString& filename) const;
 
 public:
 	//! Конструктор.
-	explicit SimpleArtificialShell(QWidget* obj = nullptr);
+    explicit SimpleArtificialShell(QWidget* obj = nullptr);
 	//! Деструктор.
 	~SimpleArtificialShell() {}
 
+    //! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
+    QLineEdit* inFileLab_;
 	//! Возвращает главный виджет с текстовым редактором и его кнопками. \details Читает защищенное поле fileToTab_. fileToTab_ можно менять.
 	fttw::OutSideWidget* get_OutsideFileToTabWidget() {return fileToTab_;}
 	//! Возвращает главный виджет с текстовым редактором и его кнопками. \details Читает защищенное поле fileToTab_. fileToTab_ нельзя менять.
@@ -82,11 +81,14 @@ private slots:
 	//! Открывает указанный файл с помощью редактора (таблицы/вкладки или текстовый редактор). Не меняет inFileLab_. Вызывается сигналом изменения текста в inFileLab_.
 	void openFileForEditing(QString str);
 
+
 public slots:
 	//! Создает диалоговое окно выбора файла, а затем открывает файл в специальном текстовом редакторе (вызывает метод openFileForEditing через сигнал).
 	void chooseFileForEditing();
 	//! Сравнивает имя файла в inFileLab_ и str. Если не совпадает, то заменяет текущее имя in-файла на str.
 	void openFileForEditingWithLineEditor(const QString& str);
+
+
 };
 
 #endif // SIMPLEARTIFICIALSHELL200217_GASPARYANMOSES

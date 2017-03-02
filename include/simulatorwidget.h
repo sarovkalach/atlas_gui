@@ -89,6 +89,8 @@ public slots:
     //void setFilenamefromNotepad(QString fielname);
     //! \~russian Метод отвечающий за остановку симулятора моделирования  \~russian
     void stopExperiment();
+
+    void enableButtons(const QString text);
 };
 #endif // SIMULATORWIDGET_H
 

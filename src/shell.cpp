@@ -1,6 +1,24 @@
 #include "shell.h"
+#include "QDebug"
 
-//------------------ SimpleArtificialShell
+SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
+    mL_ = new QVBoxLayout;
+
+    buttonLayout_ = new QHBoxLayout;
+    openFileButton_ = new QPushButton("Open in-file...");
+    inFileLab_ = new QLineEdit("");
+    inFileLab_->setReadOnly(true);
+
+    buttonLayout_->addWidget(inFileLab_, 1000);
+    buttonLayout_->addWidget(openFileButton_);
+
+    mL_->addLayout(buttonLayout_);
+
+    connect(openFileButton_, SIGNAL(clicked()), this, SLOT(chooseFileForEditing()));			//связывает открытие диалогового окна с кнопкой "Open in-file..."
+    connect(inFileLab_, SIGNAL(textChanged(QString)), this, SLOT(openFileForEditing(QString)));	//связывает изменение в строке с in-file-ом с открытием программы в текстовом редакторе
+
+    setLayout(mL_);
+}
 
 bool SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename) const{
 	ifstream fin;
@@ -25,11 +43,14 @@ bool SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename
 	return true;
 }
 
+
 void SimpleArtificialShell::chooseFileForEditing(){
 	QString str = QFileDialog::getSaveFileName(0, "Choose in-file");
 	if (checkExistenceAndCreateIfNot(str))
 		inFileLab_->setText(str);
 }
+
+
 void SimpleArtificialShell::openFileForEditing(QString str){
 	if (fileToTab_ != nullptr){
 		//удалить внутренний FileToTabWidget с помощью reload_slot.
@@ -42,6 +63,8 @@ void SimpleArtificialShell::openFileForEditing(QString str){
 		mL_->addWidget(fileToTab_);
 	}
 }
+
+
 void SimpleArtificialShell::openFileForEditingWithLineEditor(const QString& str){
 	if (str != inFileLab_->text()){
 		if (checkExistenceAndCreateIfNot(str))
@@ -50,22 +73,3 @@ void SimpleArtificialShell::openFileForEditingWithLineEditor(const QString& str)
 }
 
 
-SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
-	mL_ = new QVBoxLayout;
-
-	buttonLayout_ = new QHBoxLayout;
-	openFileButton_ = new QPushButton("Open in-file...");
-	inFileLab_ = new QLineEdit("");
-	inFileLab_->setReadOnly(true);
-
-	buttonLayout_->addWidget(inFileLab_, 1000);
-	buttonLayout_->addWidget(openFileButton_);
-
-	mL_->addLayout(buttonLayout_);
-
-	connect(openFileButton_, SIGNAL(clicked()), this, SLOT(chooseFileForEditing()));			//связывает открытие диалогового окна с кнопкой "Open in-file..."
-
-	connect(inFileLab_, SIGNAL(textChanged(QString)), this, SLOT(openFileForEditing(QString)));	//связывает изменение в строке с in-file-ом с открытием программы в текстовом редакторе
-
-	setLayout(mL_);
-}

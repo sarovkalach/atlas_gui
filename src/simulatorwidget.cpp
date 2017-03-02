@@ -14,6 +14,7 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     showModellingtableModel(owner);
     shell = new SimpleArtificialShell;
     modellingLabel = new QLabel;
+
     modellingVLayout = new QVBoxLayout;
     modellingHLayout = new QHBoxLayout;
     buttonsLayout = new QHBoxLayout;
@@ -51,7 +52,10 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     connect(editConfigButton,SIGNAL(clicked(bool)), this,SLOT(openNotepad()));
     connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stopExperiment()));
     this->setLayout(modellingVLayout);
+    shell->setParent(this);
 
+    //connect(line, SIGNAL(textEdited(QString)), this, SLOT(enableButtons(QString)));
+    connect(shell->inFileLab_, SIGNAL(textChanged(QString)), this, SLOT(enableButtons(QString)));
 }
 
 
@@ -80,9 +84,10 @@ void SimulatorWidget::insertRow()
     qDebug()<< "Simulator ID = " << id;
 
     query.prepare("INSERT INTO atlas.modelling (owner, beg_date, simulator_id, beg_file, description, progress) VALUES (:owner, :beg_date, :simulator_id, :beg_file, :description, :progress)");//
+
     query.bindValue(":owner", owner);
     query.bindValue(":beg_date", dateTime->currentDateTime().toString("MM.dd.yyyy"));
-	query.bindValue(":beg_file", "her");
+    query.bindValue(":beg_file", shell->inFileLab_->text());
     query.bindValue(":description", "test");
     query.bindValue(":progress", 1);
     query.bindValue(":simulator_id", id);
@@ -98,15 +103,19 @@ void SimulatorWidget::showModellingtableModel(const int idOwner)
     QString filter = QString("owner= %1 ").arg(owner);
     model->setFilter(filter);
 
-    model->setHeaderData(3, Qt::Horizontal,tr("Model Name"));
-    model->setHeaderData(2, Qt::Horizontal,tr("Date"));
-    model->setHeaderData(4, Qt::Horizontal,tr("Config"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Date"));
+    model->setHeaderData(3, Qt::Horizontal, tr("Model Name"));
+    model->setHeaderData(4, Qt::Horizontal, tr("BegFile"));
+    model->setHeaderData(5, Qt::Horizontal, tr("Dump"));
+    model->setHeaderData(6, Qt::Horizontal, tr("EndFile"));
+    model->setHeaderData(7, Qt::Horizontal, tr("Desctiption"));
+    model->setHeaderData(8, Qt::Horizontal, tr("Progress"));
 
     model->select();
 
     view->setModel(model);
-    //view->hideColumn(0);
-    //view->hideColumn(1);
+    view->hideColumn(0);
+    view->hideColumn(1);
 
     this->update();
 }
@@ -127,4 +136,7 @@ void SimulatorWidget::openNotepad() {
 }
 
 
-
+void SimulatorWidget::enableButtons(const QString text) {
+    stopButton->setEnabled(true);
+    startButton->setEnabled(true);
+}
