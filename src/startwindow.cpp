@@ -67,7 +67,6 @@ void StartWindow::startUp() {
             hash = file.readLine();
             hash = hash.remove(hash.size()-1, 1);
 
-            qDebug() << login << "|" << password << endl;
             main->showWidget(hash, login);
         }
 

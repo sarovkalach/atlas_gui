@@ -100,15 +100,12 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
 
         login = file.readLine();
         login = login.remove(login.size()-1, 1);
-        qDebug() << login;
 
         pass = file.readLine();
         pass = pass.remove(pass.size()-1, 1);
-        qDebug() << pass;
 
         hashAccount = file.readLine();
         hashAccount = hashAccount.remove(hashAccount.size()-1, 1);
-        qDebug() << hashAccount << " | " << hash << endl;
 
         query.prepare("SELECT * FROM atlas.users WHERE login = :login ");//
         query.bindValue(":login", login);

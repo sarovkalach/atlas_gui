@@ -79,11 +79,14 @@ private slots:
 	//! Открывает указанный файл с помощью редактора (таблицы/вкладки или текстовый редактор). Не меняет inFileLab_. Вызывается сигналом изменения текста в inFileLab_.
 	void openFileForEditing(QString str);
 
+
 public slots:
 	//! Создает диалоговое окно выбора файла, а затем открывает файл в специальном текстовом редакторе (вызывает метод openFileForEditing через сигнал).
 	void chooseFileForEditing();
 	//! Сравнивает имя файла в inFileLab_ и str. Если не совпадает, то заменяет текущее имя in-файла на str.
 	void openFileForEditingWithLineEditor(const QString& str);
+
+
 };
 
 #endif // SIMPLEARTIFICIALSHELL200217_GASPARYANMOSES

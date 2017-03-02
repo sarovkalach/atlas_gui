@@ -14,6 +14,7 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     showModellingtableModel(owner);
     shell = new SimpleArtificialShell;
     modellingLabel = new QLabel;
+
     modellingVLayout = new QVBoxLayout;
     modellingHLayout = new QHBoxLayout;
     buttonsLayout = new QHBoxLayout;
@@ -127,4 +128,6 @@ void SimulatorWidget::openNotepad() {
 }
 
 
-
+void SimulatorWidget::enableButtons(QString text) {
+    qDebug() << "Fuck you";
+}
