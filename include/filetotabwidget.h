@@ -335,8 +335,12 @@ public:
 
 	//! Возвращает имя файла для сохранения данных. \details Читает приватное поле savename_.
 	const string& get_saveName() const {return savename_;}
+	//!
+	void set_saveName(const string& savename) {savename_ = savename;}
 	//! Возвращает имя файла, из которого загружаются данные. \details Читает приватное поле loadname_.
 	const string& get_loadName() const {return loadname_;}
+	//!
+	void set_loadName(const string& loadName) {loadname_ = loadName;}
 
 public slots:
 	//! Слот, который вызывает сигнал savedata(const string&), чтобы можно было вызвать другой слот из класса FileToTabWidget.
