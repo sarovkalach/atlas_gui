@@ -11,7 +11,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDialog>
-#include <QLineEdit>								//УБРАТЬ КНОПКУ ЗАПУСКА ПРОГРАММЫ, ИМЯ ДАМП И OUT ФАЙЛОВ
+#include <QLineEdit>
 
 /*! \brief Виджет для открытия файла в специальном редакторе.
  *
@@ -49,18 +49,17 @@ private:
 	//! Кнопка для открытия файла.
 	QPushButton *openFileButton_;
 
-	//! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
-	QLineEdit* inFileLab_;
-
 	//! Проверяет, существует ли файл. Если не существует, то создает новый пустой файл.
 	void checkExistenceAndCreateIfNot(const QString& filename) const;
 
 public:
 	//! Конструктор.
-	explicit SimpleArtificialShell(QWidget* obj = nullptr);
+    explicit SimpleArtificialShell(QWidget* obj = nullptr);
 	//! Деструктор.
 	~SimpleArtificialShell() {}
 
+    //! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
+    QLineEdit* inFileLab_;
 	//! Возвращает главный виджет с текстовым редактором и его кнопками. \details Читает защищенное поле fileToTab_. fileToTab_ можно менять.
 	fttw::OutSideWidget* get_OutsideFileToTabWidget() {return fileToTab_;}
 	//! Возвращает главный виджет с текстовым редактором и его кнопками. \details Читает защищенное поле fileToTab_. fileToTab_ нельзя менять.

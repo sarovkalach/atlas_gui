@@ -90,7 +90,7 @@ public slots:
     //! \~russian Метод отвечающий за остановку симулятора моделирования  \~russian
     void stopExperiment();
 
-    void enableButtons(QString text);
+    void enableButtons(const QString text);
 };
 #endif // SIMULATORWIDGET_H
 
