@@ -24,12 +24,6 @@ MainWindow::MainWindow(QWidget *pwgt)
 
 void MainWindow::loginUser() {
 
-    //glossary = new Glossary;
-    //glossary->hide();
-
-    //integrateWidget = new IntegrateWidget;
-    //integrateWidget->hide();
-
     QDialog* loginDialog = new QDialog(this);
     QVBoxLayout* loginLayout = new QVBoxLayout;
 
@@ -71,10 +65,6 @@ void MainWindow::loginUser() {
     connect(cancelButton, SIGNAL(clicked()), loginDialog,SLOT(close()));
 
     loginDialog->exec();
-    //this->setCentralWidget(glossary);
-    //this->setCentralWidget(simulatorWidget);
-    //this->setCentralWidget(integrateWidget);
-
 }
 
 
@@ -99,13 +89,10 @@ void MainWindow::showWidget() {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, const QString&, SimulatorWidget*)), userView, SLOT(checkID(const QString&, const QString&, SimulatorWidget*)) ); // USER table
 
     statusBar()->showMessage(QString("Login: %1").arg(this->userLine->text()), 4000000);
-    //QObject::connect( this, SIGNAL(checkAccount(const QString&, const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, const QString&, IntegrateWidget*)) ); // USER table
 
     this->setGeometry(0, 0, 1024, 768);
     this->show();
 
-    //emit checkAccount(name, password, integrateWidget);
-    //statusBar()->showMessage(QString("Login: %1").arg(this->userLine->text()), 4000000);
 }
 
 void MainWindow::showWidget(const QString& hash, const QString& login) {

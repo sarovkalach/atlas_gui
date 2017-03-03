@@ -87,7 +87,7 @@ void SimulatorWidget::insertRow()
 
     query.bindValue(":owner", owner);
     query.bindValue(":beg_date", dateTime->currentDateTime().toString("MM.dd.yyyy"));
-    query.bindValue(":beg_file", shell->inFileLab_->text());
+    query.bindValue(":beg_file", shell->get_inFileLineEditor()->text());
     query.bindValue(":description", "test");
     query.bindValue(":progress", 1);
     query.bindValue(":simulator_id", id);

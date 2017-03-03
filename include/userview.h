@@ -12,10 +12,9 @@
 #include <QSqlTableModel>
 #include <QDebug>
 #include <QFile>
+#include <QCryptographicHash>
 #include "usertablemodel.h"
-#include "glossary.h"
 #include "simulatorwidget.h"
-#include "integratewidget.h"
 
 /*!
  *  \~russian \brief Класс отвечающий за логирование пользователя по паре(имя/пользователь)
@@ -39,17 +38,12 @@ public:
     bool         mark;
 
 public slots:
-    //! \~russian Метод, проверяющий пользователя по паре (имя/пользователь) для  виджета Glossary \~russian
-    bool checkID(const QString &login, const QString &password, Glossary* glossary);
 
     //! \~russian Метод, проверяющий пользователя по паре (имя/пользователь) для  виджета SimulatorWidget \~russian
     bool checkID(const QString &login, const QString &password, SimulatorWidget* simulatorWidget);
 
     //! \~russian Метод, проверяющий пользователя по хэшу \~russian
     bool checkID(const QString &hash, SimulatorWidget* simulatorWidget);
-
-    //! \~russian Метод, проверяющий пользователя по паре (имя/пользователь) для  виджета IntegrateWidget \~russian
-     bool checkID(const QString &login, const QString &password, IntegrateWidget* integrateWidget);
 
     //! \~russian Вспомогательный метод, использовался для отладки \~russian
     void editID(const QString &login);

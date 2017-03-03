@@ -1,5 +1,4 @@
 #include "userview.h"
-#include <QCryptographicHash>
 
 UserView::UserView() {
 
@@ -12,46 +11,6 @@ UserView::UserView() {
 UserView::~UserView() {
     ;
 }
-
-
-bool UserView::checkID(const QString &login, const QString &password, Glossary* glossary) {
-
-    QString pass;
-
-    query.prepare("SELECT * FROM atlas.users WHERE login = :login ");//
-    query.bindValue(":login", login);
-    query.exec();
-
-    if( query.first() ) {
-        pass = query.value(2).toString();
-            if ( pass == password ) {
-                qDebug() << "Account is TRUE";
-
-                const int owner = query.value(0).toInt();
-
-                glossary->noteWidget->showNoteTable(owner);
-                glossary->bookmarkWidget->showBookmarkTable(owner);
-                glossary->historyWidget->showHistoryTable(owner);
-                glossary->loginName = login;
-
-                // Draw glossary widget
-                connect(this, SIGNAL(updateTopWidget()), glossary, SLOT(updateWidget()));
-                emit updateTopWidget();
-
-                return true;
-            }
-            else {
-                qDebug() << "Account is FALSE";
-                return false;
-            }
-    }
-
-    else {
-        qDebug() << "Access denied";
-        return false;
-    }
-}
-
 
 
 bool UserView::checkID(const QString &login, const QString &password, SimulatorWidget *simulatorWidget) {
@@ -133,37 +92,6 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
     }
     return false;
 
-}
-
-bool UserView::checkID(const QString &login, const QString &password, IntegrateWidget *integrateWidget) {
-    QString pass;
-
-    query.prepare("SELECT * FROM atlas.users WHERE login = :login ");//
-    query.bindValue(":login", login);
-    query.exec();
-
-    if( query.first() ) {
-        pass = query.value(2).toString();
-            if ( pass == password ) {
-                qDebug() << "Account is TRUE";
-
-                const int owner = query.value(0).toInt();
-                integrateWidget->showIntegrateTableModel(owner);
-
-                connect(this, SIGNAL(updateTopWidget()), integrateWidget, SLOT(updateWidget()));
-
-                return true;
-            }
-            else {
-                qDebug() << "Account is FALSE";
-                return false;
-            }
-    }
-
-    else {
-        qDebug() << "Access denied";
-        return false;
-    }
 }
 
 

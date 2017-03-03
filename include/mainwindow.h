@@ -23,16 +23,13 @@
 #include <QStatusBar>
 #include <QCheckBox>
 
-#include "glossary.h"
 #include "userview.h"
 #include "simulatorwidget.h"
-#include "integratewidget.h"
 
 class MainWindow: public QMainWindow {
 Q_OBJECT
 
 private:
-    IntegrateWidget* integrateWidget;
     UserView* userView;
     QTranslator* translator;
     QLineEdit* passwordLine;
@@ -40,7 +37,6 @@ private:
     QMenu* menuAccount;
     QMenu* menuLanguage;
     QMenu* menuHelp;
-    Glossary* glossary;
 
     QCheckBox*    checkBoxSaveParams;
     QHBoxLayout*  checkBoxLayout;
@@ -52,11 +48,11 @@ public:
     SimulatorWidget* simulatorWidget;
 
 signals:
-    bool checkAccount(const QString &login, const QString &password, Glossary* glossary);
+    //! \~russian Сигнал отвечающий проверку аккаунта по хэшу \~russian
     bool checkAccount(const QString &hash, SimulatorWidget* simulatorWidget);
-    bool checkAccount(const QString name, const QString login, SimulatorWidget* simulatorWidget);
-
-    bool checkAccount(const QString &login, const QString &password, IntegrateWidget* integrateWidget);
+    
+    //! \~russian Сигнал отвечающий проверку аккаунта по паре пароль/пользователь \~russian
+    bool checkAccount(const QString &login, const QString &pass, SimulatorWidget* simulatorWidget);
 
 
 public slots:

@@ -15,7 +15,7 @@ SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
     mL_->addLayout(buttonLayout_);
 
     connect(openFileButton_, SIGNAL(clicked()), this, SLOT(chooseFileForEditing()));			//связывает открытие диалогового окна с кнопкой "Open in-file..."
-    connect(inFileLab_, SIGNAL(textChanged(QString)), this, SLOT(openFileForEditing(QString)));	//связывает изменение в строке с in-file-ом с открытием программы в текстовом редакторе
+    connect(this->get_inFileLineEditor(), SIGNAL(textChanged(QString)), this, SLOT(openFileForEditing(QString)));	//связывает изменение в строке с in-file-ом с открытием программы в текстовом редакторе
 
     setLayout(mL_);
 }
