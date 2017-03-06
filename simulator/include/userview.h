@@ -51,12 +51,18 @@ public slots:
     //! \~russian Метод, отвечающий за сохранение сессии в кюшированном виде \~russian
     void saveSessionSlot(const QString& login, const QString& pass, SimulatorWidget* simulatorWidget);
 
+    //! \~russian Метод, отвечающий за сохранение сессии в кюшированном виде \~russian
+    //void showMainSlot();
+
 signals:
     //! \~russian Сигнал отвечающий за перерисовку главного виджета, после его изменения \~russian
     void updateTopWidget();
     //! \~russian Сигнал, сохраняющий хэш  \~russian
     void saveSessionSignal(const QString& login, const QString& pass, SimulatorWidget* simulatorWidget);
-
+    //! \~russian Сигнал, отвечающий за прорисовку главного окна  \~russian
+    void closeDialogSignal();
+    //! \~russian Сигнал, за показ ошибки при отрицательном логировании  \~russian
+    void showLoginErrorSignal();
 };
 
 #endif // USERVIEW_H

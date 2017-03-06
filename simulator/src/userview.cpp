@@ -4,7 +4,7 @@ UserView::UserView() {
 
     this->hideColumn(0);
     mark = false;
-
+    connect(this, SIGNAL(saveSessionSignal(const QString& ,const QString&, SimulatorWidget*)), this, SLOT(saveSessionSlot(const QString&,const QString&, SimulatorWidget*)));
 }
 
 
@@ -15,7 +15,8 @@ UserView::~UserView() {
 
 bool UserView::checkID(const QString &login, const QString &password, SimulatorWidget *simulatorWidget) {
     QString pass;
-    connect(this, SIGNAL(saveSessionSignal(const QString& ,const QString&, SimulatorWidget*)), this, SLOT(saveSessionSlot(const QString&,const QString&, SimulatorWidget*)));
+    connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
+    connect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
 
     query.prepare("SELECT * FROM atlas.users WHERE login = :login ");//
     query.bindValue(":login", login);
@@ -31,20 +32,29 @@ bool UserView::checkID(const QString &login, const QString &password, SimulatorW
 
                 //Save session
                 // login after check saved session
+                simulatorWidget->parentWidget()->show();
                 emit saveSessionSignal(login, password, simulatorWidget);
+                emit closeDialogSignal();
                 return true;
             }
             else {
-                qDebug() << "Account is FALSE";
+                qDebug() << "Name or pass is wrong(pass)";
+                emit showLoginErrorSignal();
                 return false;
             }
     }
 
     else {
-        qDebug() << "Access denied";
+        qDebug() << "Name or pass is wrong";
+        emit showLoginErrorSignal();
         return false;
     }
 
+    emit closeDialogSignal();
+    disconnect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
+    disconnect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
+
+    return false;
 }
 
 bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
@@ -52,7 +62,10 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
     QString login;
     QString hashAccount;
 
+    connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
     connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
+    connect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
+
     QFile file("myfile.txt");
 
     if( file.open(QIODevice::ReadOnly) ) {
@@ -74,12 +87,15 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
             const int owner = query.value(0).toInt();
             QString pass = query.value(2).toString();
             simulatorWidget->showModellingtableModel(owner);
+            emit closeDialogSignal();
+
         }
 
         QString hashAccount = QString(QCryptographicHash::hash(((login + pass + "⁠⁠⁠HerVamVsem")).toStdString().c_str(),QCryptographicHash::Md5).toHex());
 
         if ( hashAccount == hash) {
 
+            simulatorWidget->parentWidget()->show();
             emit updateTopWidget();
             file.close();
             return true;
@@ -89,9 +105,14 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
 
     else {
         qDebug() << "Access denied,file not open";
-    }
-    return false;
+        emit showLoginErrorSignal();
 
+    }
+
+    disconnect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
+    disconnect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
+
+    return false;
 }
 
 
@@ -107,7 +128,11 @@ void UserView::editID(const QString& login) {
 
 void UserView::saveSessionSlot(const QString& login,  const QString& pass, SimulatorWidget* simulatorWidget) {
 
+    connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
     connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
+    connect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
+
+
     QFile file("myfile.txt");
 
     // get hash from (login + pass)
@@ -118,18 +143,27 @@ void UserView::saveSessionSlot(const QString& login,  const QString& pass, Simul
         while ( !file.atEnd()) {
            QString tmp = file.readLine();
             tmp = tmp.remove(tmp.size()-1, 1);
-            if ( tmp == hash )
+            if ( tmp == hash ) {
+                simulatorWidget->parentWidget()->show();
                 emit updateTopWidget();
+            }
         }
         if ( mark )
             writeAccount(file, login, pass, hash);
     } else {
         file.open(QIODevice::ReadWrite);
-        if ( mark )
+        if ( mark ) {
+            emit closeDialogSignal();
+            simulatorWidget->parentWidget()->show();
             writeAccount(file, login, pass, hash);
+        }
         emit updateTopWidget();
+
     }
     qDebug() << this << endl;
+    emit closeDialogSignal();
+    disconnect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
+    disconnect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
 }
 
 void UserView::writeAccount(QFile &file, QString login, QString pass, QString hash) {

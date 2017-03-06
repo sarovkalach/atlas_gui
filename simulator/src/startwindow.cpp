@@ -43,7 +43,6 @@ void StartWindow::startUp() {
     QFile file("myfile.txt");
     setLanguage(language);
     main = new MainWindow;
-    //main->hide();
     this->close();
 
     if ( file.exists() && file.size() > 0 ) {
@@ -78,9 +77,9 @@ void StartWindow::startUp() {
 }
 void StartWindow::setLanguage(const QString lang) {
     if (lang == "Russian")
-        translator->load("/home/kalach/Qt/atlas_gui/languages/main_ru.qm");
+        translator->load("/home/kalach/Qt/atlas_gui/simulator/res/main_ru.qm");
     else
-        translator->load("/home/kalach/Qt/atlas_gui/languages/main_en.qm");
+        translator->load("/home/kalach/Qt/atlas_gui/simulator/res/main_en.qm");
 
     app->installTranslator(translator);
 

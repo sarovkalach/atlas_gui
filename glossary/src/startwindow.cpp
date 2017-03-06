@@ -78,10 +78,9 @@ void StartWindow::startUp() {
 }
 void StartWindow::setLanguage(const QString lang) {
     if (lang == "Russian")
-        translator->load("/home/kalach/Qt/atlas_gui/languages/main_ru.qm");
+        translator->load("/home/kalach/Qt/atlas_gui/glossary/res/main_ru.qm");
     else
-        translator->load("/home/kalach/Qt/atlas_gui/languages/main_en.qm");
+        translator->load("/home/kalach/Qt/atlas_gui/glossary/res/main_en.qm");
 
     app->installTranslator(translator);
-
 }

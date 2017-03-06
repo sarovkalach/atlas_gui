@@ -55,7 +55,7 @@ void MainWindow::loginUser() {
     checkBoxSaveParams = new QCheckBox;
     checkBoxLayout = new QHBoxLayout;
     saveParamsLabel = new QLabel;
-    saveParamsLabel->setText("Save session");
+    saveParamsLabel->setText(tr("Save session"));
     checkBoxLayout->addWidget(checkBoxSaveParams);
     checkBoxLayout->addWidget(saveParamsLabel);
     loginLayout->addLayout(checkBoxLayout);
