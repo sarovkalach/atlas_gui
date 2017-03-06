@@ -10,8 +10,6 @@
 #include "simulatorwidget.h"
 #include "mainwindow.h"
 #include "startwindow.h"
-#include "notepadwidget.h"
-#include "integratewidget.h"
 
 int main(int argc, char *argv[])
 {
