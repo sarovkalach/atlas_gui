@@ -3,7 +3,6 @@
 MainWindow::MainWindow(QWidget *pwgt)
     : QMainWindow(pwgt)
 {
-
     menuAccount = new QMenu(tr("&Account"));
     menuBar()->addMenu(menuAccount);
     QAction *loginAction = new QAction("&Login", 0);
@@ -62,7 +61,7 @@ MainWindow::MainWindow(QWidget *pwgt)
 
     connect(okButton, SIGNAL(clicked()), SLOT(showWidget()));
     connect(cancelButton, SIGNAL(clicked()), loginDialog,SLOT(close()));
-
+    this->setGeometry(0, 0, 1024, 768);
 }
 
 void MainWindow::loginUser() {
@@ -72,7 +71,6 @@ void MainWindow::loginUser() {
 
 
 void MainWindow::showWidget() {
-
     QString name;
     QString pass;
 
@@ -85,8 +83,6 @@ void MainWindow::showWidget() {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, const QString&, Glossary*)), userView, SLOT(checkID(const QString&, const QString&, Glossary*)) ); // USER table
 
     statusBar()->showMessage(QString("Login: %1").arg(this->userLine->text()), 4000000);
-    this->show();
-
 }
 
 
@@ -97,8 +93,6 @@ void MainWindow::showWidget(const QString& hash, const QString& login) {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, Glossary*)), userView, SLOT(checkID(const QString&, Glossary*)) ); // USER table
 
     statusBar()->showMessage(QString("Login: %1").arg(login), 4000000);
-    this->setGeometry(0, 0, 1024, 768);
-
 }
 
 

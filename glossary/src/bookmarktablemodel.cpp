@@ -5,7 +5,6 @@
 
 
 BookmarkTableModel::BookmarkTableModel() {
-
     this->setTable("atlas.bookmark");
     this->select();
 }

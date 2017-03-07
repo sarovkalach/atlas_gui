@@ -8,8 +8,6 @@
 #include <typeinfo>
 
 UserWidget::UserWidget(QWidget *pwgt): QWidget(pwgt) {
-
-
     userVBoxLayout = new QVBoxLayout;
     userView = new UserView;
 
@@ -19,7 +17,6 @@ UserWidget::UserWidget(QWidget *pwgt): QWidget(pwgt) {
     userVBoxLayout->addWidget(userLabel);
     userVBoxLayout->addWidget(userView);
     this->setLayout(userVBoxLayout);
-
 }
 
 

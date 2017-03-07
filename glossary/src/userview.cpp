@@ -1,11 +1,9 @@
 #include "userview.h"
 
 UserView::UserView() {
-
     this->hideColumn(0);
     mark = false;
     connect(this, SIGNAL(saveSessionSignal(const QString& ,const QString&, Glossary*)), this, SLOT(saveSessionSlot(const QString&,const QString&, Glossary*)));
-
 }
 
 
@@ -15,7 +13,6 @@ UserView::~UserView() {
 
 
 bool UserView::checkID(const QString &login, const QString &password, Glossary* glossary) {
-
     QString pass;
 
     connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
@@ -37,6 +34,7 @@ bool UserView::checkID(const QString &login, const QString &password, Glossary* 
                 glossary->bookmarkWidget->showBookmarkTable(owner);
                 glossary->historyWidget->showHistoryTable(owner);
                 glossary->loginName = login;
+                glossary->parentWidget()->show();
 
                 // Draw glossary widget
                 emit updateTopWidget();

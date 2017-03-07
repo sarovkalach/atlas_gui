@@ -4,7 +4,6 @@
 
 GlossaryWidget::GlossaryWidget(QWidget *pwgt) : QWidget(pwgt) {
 
-
     glossaryLabel = new QLabel(tr("Filter"));
     glossVBoxLayout = new QVBoxLayout;
     glossTableview = new GlossaryView;
