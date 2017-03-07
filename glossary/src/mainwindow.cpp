@@ -108,5 +108,5 @@ void MainWindow::closeLoginDialog() {
 
 
 void MainWindow::showLoginError() {
-    status->showMessage("Fuck off", 5000);
+    status->showMessage("Wrong account", 5000);
 }
