@@ -38,6 +38,7 @@ private:
     QMenu* menuLanguage;
     QMenu* menuHelp;
     QStatusBar* status;
+    
     QCheckBox*    checkBoxSaveParams;
     QHBoxLayout*  checkBoxLayout;
     QLabel*       saveParamsLabel;

@@ -52,7 +52,10 @@ signals:
     void updateTopWidget();
     //! \~russian Сигнал, сохраняющий хэш  \~russian
     void saveSessionSignal(const QString& login, const QString& pass, Glossary* glossary);
-
+    //! \~russian Сигнал, отвечающий за прорисовку главного окна  \~russian
+    void closeDialogSignal();
+    //! \~russian Сигнал, за показ ошибки при отрицательном логировании  \~russian
+    void showLoginErrorSignal();
 };
 
 #endif // USERVIEW_H

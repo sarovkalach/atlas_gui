@@ -19,12 +19,13 @@ MainWindow::MainWindow(QWidget *pwgt)
     connect(loginAction, SIGNAL(triggered()), SLOT(loginUser()));
     this->setCentralWidget(integrateWidget);
 
-    this->show();
-}
+    userView = new UserView;
+    userView->setParent(this);
+    userView->hide();
 
-void MainWindow::loginUser() {
+    integrateWidget->setParent(this);
 
-    QDialog* loginDialog = new QDialog(this);
+    loginDialog = new QDialog(this);
     QVBoxLayout* loginLayout = new QVBoxLayout;
 
     QLabel* userLabel = new QLabel();
@@ -52,6 +53,7 @@ void MainWindow::loginUser() {
     loginLayout->addLayout(buttonsLayout);
     loginDialog->setLayout(loginLayout);
 
+    status = new QStatusBar;
     checkBoxSaveParams = new QCheckBox;
     checkBoxLayout = new QHBoxLayout;
     saveParamsLabel = new QLabel;
@@ -59,12 +61,16 @@ void MainWindow::loginUser() {
     checkBoxLayout->addWidget(checkBoxSaveParams);
     checkBoxLayout->addWidget(saveParamsLabel);
     loginLayout->addLayout(checkBoxLayout);
+    loginLayout->addWidget(status);
 
     connect(okButton, SIGNAL(clicked()), SLOT(showWidget()));
-    connect(okButton, SIGNAL(clicked()), loginDialog, SLOT(close()));
     connect(cancelButton, SIGNAL(clicked()), loginDialog,SLOT(close()));
 
-    loginDialog->exec();
+}
+
+void MainWindow::loginUser() {
+    if ( loginDialog != nullptr )
+        loginDialog->exec();
 
 }
 
@@ -73,7 +79,6 @@ void MainWindow::loginUser() {
 
 void MainWindow::showWidget() {
 
-    userView = new UserView;
     QString name;
     QString pass;
 
@@ -81,27 +86,29 @@ void MainWindow::showWidget() {
     pass = passwordLine->text();
 
     userView->mark = this->checkBoxSaveParams->checkState();
-    QObject::connect( this, SIGNAL(checkAccount(const QString&, const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, const QString&, IntegrateWidget*)) ); // USER table
+    QObject::connect( this, SIGNAL(checkAccount(const QString&, const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, const QString&, IntegrateWidget*)) );
     emit checkAccount(name, pass, integrateWidget);
-    QObject::disconnect( this, SIGNAL(checkAccount(const QString&, const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, const QString&, IntegrateWidget*)) ); // USER table
+    QObject::disconnect( this, SIGNAL(checkAccount(const QString&, const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, const QString&, IntegrateWidget*)) );
 
     statusBar()->showMessage(QString("Login: %1").arg(this->userLine->text()), 4000000);
-
     this->setGeometry(0, 0, 1024, 768);
-    this->show();
 
 }
 
 void MainWindow::showWidget(const QString& hash, const QString& login) {
 
-    userView = new UserView;
-
-    QObject::connect( this, SIGNAL(checkAccount(const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, IntegrateWidget*)) ); // USER table
+    QObject::connect( this, SIGNAL(checkAccount(const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, IntegrateWidget*)) );
     emit checkAccount(hash, integrateWidget);
-    QObject::disconnect( this, SIGNAL(checkAccount(const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, IntegrateWidget*)) ); // USER table
+    QObject::disconnect( this, SIGNAL(checkAccount(const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, IntegrateWidget*)) );
+
     statusBar()->showMessage(QString("Login: %1").arg(login), 4000000);
-
     this->setGeometry(0, 0, 1024, 768);
-    this->show();
+}
 
+void MainWindow::closeLoginDialog() {
+    loginDialog->hide();
+}
+
+void MainWindow::showLoginError() {
+    status->showMessage("Fuck off", 5000);
 }

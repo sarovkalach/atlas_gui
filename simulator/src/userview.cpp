@@ -15,6 +15,7 @@ UserView::~UserView() {
 
 bool UserView::checkID(const QString &login, const QString &password, SimulatorWidget *simulatorWidget) {
     QString pass;
+    
     connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
     connect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
 
@@ -63,9 +64,9 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
     QString hashAccount;
 
     connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
-    connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
     connect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
-
+    connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
+    
     QFile file("myfile.txt");
 
     if( file.open(QIODevice::ReadOnly) ) {
@@ -88,13 +89,11 @@ bool UserView::checkID(const QString &hash, SimulatorWidget* simulatorWidget) {
             QString pass = query.value(2).toString();
             simulatorWidget->showModellingtableModel(owner);
             emit closeDialogSignal();
-
         }
 
         QString hashAccount = QString(QCryptographicHash::hash(((login + pass + "⁠⁠⁠HerVamVsem")).toStdString().c_str(),QCryptographicHash::Md5).toHex());
 
         if ( hashAccount == hash) {
-
             simulatorWidget->parentWidget()->show();
             emit updateTopWidget();
             file.close();
@@ -129,9 +128,8 @@ void UserView::editID(const QString& login) {
 void UserView::saveSessionSlot(const QString& login,  const QString& pass, SimulatorWidget* simulatorWidget) {
 
     connect(this, SIGNAL(closeDialogSignal()), this->parentWidget(), SLOT(closeLoginDialog()));
-    connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
     connect(this, SIGNAL(showLoginErrorSignal()), this->parentWidget(), SLOT(showLoginError()));
-
+    connect(this, SIGNAL(updateTopWidget()), simulatorWidget, SLOT(updateWidget()));
 
     QFile file("myfile.txt");
 

@@ -64,8 +64,6 @@ signals:
     void setFile(QString filename);
 
 public slots:
-    //! \~russian Вспомогательный метод использовался для отладки \~russian
-    int  getSimulatorID(QString simulatorName);
     //! \~russian Метод отвечающий за открытие файла конфигурации \~russian    
     void startExpirement();
     //! \~russian Метод отвечающий за вставку записи в таблицу atlas.integrate \~russian        

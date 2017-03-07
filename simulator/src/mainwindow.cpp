@@ -26,8 +26,6 @@ MainWindow::MainWindow(QWidget *pwgt)
     simulatorWidget->setParent(this);
 
     loginDialog = new QDialog(this);
-
-
     QVBoxLayout* loginLayout = new QVBoxLayout;
 
     QLabel* userLabel = new QLabel();
@@ -65,10 +63,7 @@ MainWindow::MainWindow(QWidget *pwgt)
     loginLayout->addLayout(checkBoxLayout);
     loginLayout->addWidget(status);
 
-
-
     connect(okButton, SIGNAL(clicked()), SLOT(showWidget()));
-    //connect(okButton, SIGNAL(clicked()), loginDialog, SLOT(close()));
     connect(cancelButton, SIGNAL(clicked()), loginDialog,SLOT(close()));
 
 }
@@ -96,7 +91,6 @@ void MainWindow::showWidget() {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, const QString&, SimulatorWidget*)), userView, SLOT(checkID(const QString&, const QString&, SimulatorWidget*)) );
 
     statusBar()->showMessage(QString("Login: %1").arg(this->userLine->text()), 4000000);
-
     this->setGeometry(0, 0, 1024, 768);
 
 }
@@ -108,7 +102,6 @@ void MainWindow::showWidget(const QString& hash, const QString& login) {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, SimulatorWidget*)), userView, SLOT(checkID(const QString&, SimulatorWidget*)) );
 
     statusBar()->showMessage(QString("Login: %1").arg(login), 4000000);
-
     this->setGeometry(0, 0, 1024, 768);
 
 }

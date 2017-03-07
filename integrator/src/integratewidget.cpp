@@ -78,9 +78,6 @@ void IntegrateWidget::startExpirement() {
 void IntegrateWidget::insertRow()
 {
     QDateTime* dateTime = new QDateTime;
-    id = getSimulatorID(modellingComboBox->currentText());
-    qDebug()<< "Simulator ID = " << id;
-
     query.prepare("INSERT INTO atlas.integrate (owner, date, spp, comments, brain) VALUES (:owner, :date, :spp, :comments, :brain)");//
     query.bindValue(":owner", owner);
     query.bindValue(":date", dateTime->currentDateTime().toString("MM.dd.yyyy"));
@@ -108,10 +105,6 @@ void IntegrateWidget::showIntegrateTableModel(const int idOwner)
     model->setHeaderData(7, Qt::Horizontal, tr("RP"));
     model->setHeaderData(8, Qt::Horizontal, tr("Comments"));
 
-
-
-
-
     //model->select();
 
     view->setModel(model);
@@ -121,18 +114,6 @@ void IntegrateWidget::showIntegrateTableModel(const int idOwner)
     this->update();
 }
 
-
-int IntegrateWidget::getSimulatorID(QString simulatorName)
-{
-    /*
-    query.prepare("select * from atlas.integrate WHERE reference=:reference ");//
-    query.bindValue(":reference", simulatorName);
-    query.exec();
-    queryModel.setQuery(query);
-
-    return queryModel.data(queryModel.index(0,0)).toInt();
-    */
-}
 
 void IntegrateWidget::removeRow()
 {

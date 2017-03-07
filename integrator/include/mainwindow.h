@@ -38,11 +38,12 @@ private:
     QMenu* menuAccount;
     QMenu* menuLanguage;
     QMenu* menuHelp;
-
+    QStatusBar* status;
+    
     QCheckBox*    checkBoxSaveParams;
     QHBoxLayout*  checkBoxLayout;
     QLabel*       saveParamsLabel;
-
+    QDialog* loginDialog;
 
 public:
     MainWindow(QWidget* pwgt = 0);
@@ -61,6 +62,8 @@ public slots:
     void loginUser();
     void showWidget();
     void showWidget(const QString& hash, const QString& name);
+    void closeLoginDialog();
+    void showLoginError();
 };
 
 #endif // MAINWINDOW_H
