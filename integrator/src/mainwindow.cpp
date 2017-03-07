@@ -64,12 +64,12 @@ MainWindow::MainWindow(QWidget *pwgt)
 
     connect(okButton, SIGNAL(clicked()), SLOT(showWidget()));
     connect(cancelButton, SIGNAL(clicked()), loginDialog,SLOT(close()));
+    this->setGeometry(0, 0, 1024, 768);
 }
 
 void MainWindow::loginUser() {
     if ( loginDialog != nullptr )
         loginDialog->exec();
-
 }
 
 
@@ -88,7 +88,6 @@ void MainWindow::showWidget() {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, const QString&, IntegrateWidget*)) );
 
     statusBar()->showMessage(QString("Login: %1").arg(this->userLine->text()), 4000000);
-    this->setGeometry(0, 0, 1024, 768);
 }
 
 void MainWindow::showWidget(const QString& hash, const QString& login) {
@@ -97,7 +96,6 @@ void MainWindow::showWidget(const QString& hash, const QString& login) {
     QObject::disconnect( this, SIGNAL(checkAccount(const QString&, IntegrateWidget*)), userView, SLOT(checkID(const QString&, IntegrateWidget*)) );
 
     statusBar()->showMessage(QString("Login: %1").arg(login), 4000000);
-    this->setGeometry(0, 0, 1024, 768);
 }
 
 void MainWindow::closeLoginDialog() {
