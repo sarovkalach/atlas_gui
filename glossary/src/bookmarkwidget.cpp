@@ -16,7 +16,7 @@ BookmarkWidget::BookmarkWidget(QWidget *pwgt): QWidget(pwgt) {
 
     bookmarkView->setModel(bookmarkTableModel);
     bookmarkLayout->addWidget(bookmarkView);
-    bookmarkView->hideColumn(0);
+    //bookmarkView->hideColumn(0);
 
     insertButton = new QPushButton;
     insertButton->setText(tr("Insert"));

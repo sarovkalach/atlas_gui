@@ -68,7 +68,7 @@ void SimulatorWidget::updateWidget() {
 
 void SimulatorWidget::startExpirement() {
     qDebug() << "Start Experiment";
-    simulator->start("/home/kalach/Qt/sleep");
+    simulator->start("/home/kalach/test_start.sh");
 }
 
 void SimulatorWidget::stopExperiment() {

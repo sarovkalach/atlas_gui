@@ -48,7 +48,7 @@ private:
 public:
     //! \~russian Конструктор класса. \details \~russian
     NoteWidget(QWidget * pwgt = 0);
-    int idOwner;
+    int idOwner_;
 
 public slots:
     //! \~russian Метод отвечающий за отображение таблицы atlas.note с фильтрацией по полю owner \~russian        

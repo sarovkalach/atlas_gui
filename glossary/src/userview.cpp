@@ -33,7 +33,8 @@ bool UserView::checkID(const QString &login, const QString &password, Glossary* 
                 glossary->noteWidget->showNoteTable(owner);
                 glossary->bookmarkWidget->showBookmarkTable(owner);
                 glossary->historyWidget->showHistoryTable(owner);
-                glossary->loginName = login;
+                //glossary->loginName = login;
+
                 glossary->parentWidget()->show();
 
                 // Draw glossary widget
@@ -93,7 +94,7 @@ bool UserView::checkID(const QString &hash, Glossary* glossary) {
             glossary->noteWidget->showNoteTable(owner);
             glossary->bookmarkWidget->showBookmarkTable(owner);
             glossary->historyWidget->showHistoryTable(owner);
-            glossary->loginName = login;;
+            glossary->idOwner = owner;
             emit closeDialogSignal();
         }
 

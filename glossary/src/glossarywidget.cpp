@@ -51,7 +51,7 @@ void GlossaryWidget::addHistoryRow() {
     searhRecord = this->glossFilterNotion->text();
 
     historyWidget->historyModel->insertRow(lastRow);
-    historyWidget->historyModel->setData(historyWidget->historyModel->index(0,1), 1); // ID from users
+    historyWidget->historyModel->setData(historyWidget->historyModel->index(0,1), owner_); // ID from users
     historyWidget->historyModel->setData(historyWidget->historyModel->index(0,2), dateTime->currentDateTime().toString("MM.dd.yyyy")); //insert current date
     historyWidget->historyModel->setData(historyWidget->historyModel->index(0,3), searhRecord);  //insert search position
     qDebug() << historyWidget->historyModel->submitAll();

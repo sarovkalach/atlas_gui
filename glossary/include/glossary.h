@@ -27,6 +27,8 @@ private:
     QHBoxLayout*    horizontalLayout;
     QGridLayout*    totalGrid;
 
+
+
 public:
     //! \~russian Деструктор класса. \details \~russian
     Glossary(QWidget * pwgt = 0);
@@ -37,10 +39,6 @@ public:
     NoteWidget*     noteWidget;
     BookmarkWidget* bookmarkWidget;
     int idOwner;
-    QString loginName;
-
-//signals:
-    //void exportTopLevelWidget(Glossary* glossary);
 
 public slots:
     //! \~russian Метод отвечающий за перерисовку виджета после его изменения  \~russian

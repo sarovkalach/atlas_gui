@@ -38,13 +38,13 @@ void HistoryWidget::deleteRow() {
            historyModel->submit();
     }
 
-    showHistoryTable(idOwner);
+    showHistoryTable(idOwner_);
 }
 
 
 void HistoryWidget::showHistoryTable(const int &owner) {
 
-    idOwner = owner;
+    idOwner_ = owner;
     query.prepare("select date,request from atlas.history WHERE owner=:owner");//
     query.bindValue(":owner", owner);
     query.exec();
@@ -61,7 +61,7 @@ void HistoryWidget::showHistoryTable(const int &owner) {
 void HistoryWidget::updateHistoryTable() {
 
     query.prepare("select date,request from atlas.history WHERE owner=:owner");//
-    query.bindValue(":owner", idOwner);
+    query.bindValue(":owner", idOwner_);
     query.exec();
 
     queryModel.setQuery(query);

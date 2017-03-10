@@ -32,7 +32,7 @@ private:
     QSqlQueryModel queryModel;
     QSqlQuery query;
 
-    int idOwner;
+    int idOwner_;
 
 public:
     //! \~russian Конструктор класса. \details \~russian

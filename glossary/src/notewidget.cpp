@@ -49,7 +49,7 @@ void NoteWidget::insertRow() {
     QDateTime* dateTime = new QDateTime;
 
     query.prepare("INSERT INTO atlas.note (owner, date, name, content) VALUES (:owner, :date, :content, :name)");//
-    query.bindValue(":owner",idOwner);
+    query.bindValue(":owner",idOwner_);
     query.bindValue(":date", dateTime->currentDateTime().toString("MM.dd.yyyy") );
     query.bindValue(":content", content);
     query.bindValue(":name", name);
@@ -57,7 +57,7 @@ void NoteWidget::insertRow() {
     queryModel.setQuery(query);
     queryModel.submit();
 
-    showNoteTable(idOwner);
+    showNoteTable(idOwner_);
 }
 
 
@@ -78,12 +78,12 @@ void NoteWidget::deleteRow() {
     }
 
     noteModel->submitAll();
-    showNoteTable(idOwner);
+    showNoteTable(idOwner_);
 }
 
 void NoteWidget::showNoteTable(const int &owner) {
 
-    idOwner = owner;
+    idOwner_ = owner;
     query.prepare("select name,content,date from atlas.note WHERE owner=:owner");//
     query.bindValue(":owner", owner);
     query.exec();

@@ -38,6 +38,7 @@ private:
     QLineEdit* glossFilterNotion;
     QVBoxLayout* glossVBoxLayout;
     GlossaryView* glossTableview;
+    int owner_;
 
 public:
     //! \~russian Конструктор класса. \details \~russian Располагает в своей рабочей области таблицу и поле для фильрации.
