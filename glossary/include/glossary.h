@@ -22,7 +22,6 @@
 class Glossary: public QWidget {
     Q_OBJECT
 private:
-    GlossaryWidget* glossaryWidget;
     QVBoxLayout*    verticalLayout;
     QHBoxLayout*    horizontalLayout;
     QGridLayout*    totalGrid;
@@ -38,6 +37,8 @@ public:
     HistoryWidget*  historyWidget;
     NoteWidget*     noteWidget;
     BookmarkWidget* bookmarkWidget;
+    GlossaryWidget* glossaryWidget;
+
     int idOwner;
 
 public slots:

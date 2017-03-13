@@ -1,7 +1,7 @@
 #include "userview.h"
 
 UserView::UserView() {
-    this->hideColumn(0);
+    //this->hideColumn(0);
     mark = false;
     connect(this, SIGNAL(saveSessionSignal(const QString& ,const QString&, Glossary*)), this, SLOT(saveSessionSlot(const QString&,const QString&, Glossary*)));
 }
@@ -33,7 +33,7 @@ bool UserView::checkID(const QString &login, const QString &password, Glossary* 
                 glossary->noteWidget->showNoteTable(owner);
                 glossary->bookmarkWidget->showBookmarkTable(owner);
                 glossary->historyWidget->showHistoryTable(owner);
-                //glossary->loginName = login;
+                glossary->glossaryWidget->setOwner(owner);
 
                 glossary->parentWidget()->show();
 
@@ -94,7 +94,7 @@ bool UserView::checkID(const QString &hash, Glossary* glossary) {
             glossary->noteWidget->showNoteTable(owner);
             glossary->bookmarkWidget->showBookmarkTable(owner);
             glossary->historyWidget->showHistoryTable(owner);
-            glossary->idOwner = owner;
+            glossary->glossaryWidget->setOwner(owner);
             emit closeDialogSignal();
         }
 

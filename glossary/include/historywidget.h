@@ -42,6 +42,8 @@ public:
     ~HistoryWidget();
 
 public slots:
+    //! \~russian Метод отвечающий за вставку записи в таблицу atlas.history  \~russian
+    void addRow(int owner, QString& request);
     //! \~russian Метод отвечающий за удаление записи из таблицы atlas.history  \~russian
     void deleteRow();
     //! \~russian Метод отвечающий за отображение таблицы atlas.history и фильтрующий записи по полю owner   \~russian

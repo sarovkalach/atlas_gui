@@ -21,6 +21,8 @@ Glossary::Glossary(QWidget *pwgt) : QWidget(pwgt) {
     totalGrid->addWidget(glossaryWidget,0,2,2,1);
     totalGrid->addWidget(historyWidget,0,4,2,2);
 
+    historyWidget->setParent(this);
+    glossaryWidget->setParent(this);
     this->setLayout(totalGrid);
 
 }

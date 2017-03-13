@@ -38,28 +38,22 @@ GlossaryWidget::GlossaryWidget(QWidget *pwgt) : QWidget(pwgt) {
     connect(glossFilterNotion, SIGNAL(textChanged(const QString&)), this, SLOT(setFilterNotion(const QString&)));
     connect(glossFilterNotion, SIGNAL(returnPressed()), this, SLOT(addHistoryRow()));
 
+    historyWidget = new HistoryWidget;
+    connect(this, SIGNAL(addRowinHistoryTable(int,QString&)), historyWidget, SLOT(addRow(int, QString&)));
 }
 
 
 void GlossaryWidget::addHistoryRow() {
 
-    QDateTime* dateTime = new QDateTime;
     QString searhRecord;
-    HistoryWidget* historyWidget = new HistoryWidget;
 
     int lastRow = historyWidget->historyModel->rowCount();
     searhRecord = this->glossFilterNotion->text();
 
-    historyWidget->historyModel->insertRow(lastRow);
-    historyWidget->historyModel->setData(historyWidget->historyModel->index(0,1), owner_); // ID from users
-    historyWidget->historyModel->setData(historyWidget->historyModel->index(0,2), dateTime->currentDateTime().toString("MM.dd.yyyy")); //insert current date
-    historyWidget->historyModel->setData(historyWidget->historyModel->index(0,3), searhRecord);  //insert search position
-    qDebug() << historyWidget->historyModel->submitAll();
-    qDebug() << historyWidget->historyModel->lastError().text();
-
+    qDebug() << "Last row = "<< lastRow;
+    emit addRowinHistoryTable(owner_, searhRecord);
     connect(this, SIGNAL(updateHistoryTable()), this->parentWidget(), SLOT(updateTableWidget()));
     emit updateHistoryTable();
-
 }
 
 void GlossaryWidget::setFilterNotion(const QString& filter) {
@@ -67,7 +61,9 @@ void GlossaryWidget::setFilterNotion(const QString& filter) {
 }
 
 
-
+void GlossaryWidget::setOwner(int id) {
+    owner_ = id;
+}
 
 GlossaryWidget::~GlossaryWidget() {
 

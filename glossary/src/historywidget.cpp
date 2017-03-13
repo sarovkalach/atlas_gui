@@ -1,6 +1,7 @@
 #include "historywidget.h"
 #include <QModelIndexList>
 #include <QDebug>
+#include <QDateTime>
 
 HistoryWidget::HistoryWidget(QWidget *pwgt): QWidget(pwgt) {
 
@@ -51,7 +52,6 @@ void HistoryWidget::showHistoryTable(const int &owner) {
 
     queryModel.setQuery(query);
     historyView->setModel(&queryModel);
-
     queryModel.setQuery(query);
     queryModel.setHeaderData(1,Qt::Horizontal,tr("Request"));
     queryModel.setHeaderData(0,Qt::Horizontal,tr("Date"));
@@ -63,13 +63,26 @@ void HistoryWidget::updateHistoryTable() {
     query.prepare("select date,request from atlas.history WHERE owner=:owner");//
     query.bindValue(":owner", idOwner_);
     query.exec();
-
     queryModel.setQuery(query);
     historyView->setModel(&queryModel);
 
 }
 
+void HistoryWidget::addRow(int owner, QString& request) {
 
+    idOwner_ = owner;
+    QDateTime* dateTime = new QDateTime;
+
+    query.prepare("INSERT INTO atlas.history (owner, date, request) VALUES (:owner, :date, :request)");//
+    query.bindValue(":owner",idOwner_);
+    query.bindValue(":date", dateTime->currentDateTime().toString("MM.dd.yyyy") );
+    query.bindValue(":request", request);
+    query.exec();
+    queryModel.setQuery(query);
+    queryModel.submit();
+
+    showHistoryTable(idOwner_);
+}
 
 HistoryWidget::~HistoryWidget() {
     ;

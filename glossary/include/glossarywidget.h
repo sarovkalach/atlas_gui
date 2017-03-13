@@ -40,14 +40,18 @@ private:
     GlossaryView* glossTableview;
     int owner_;
 
+
 public:
     //! \~russian Конструктор класса. \details \~russian Располагает в своей рабочей области таблицу и поле для фильрации.
     GlossaryWidget(QWidget * pwgt = 0);
     ~GlossaryWidget();
+    void setOwner(int id);
+    HistoryWidget* historyWidget;
 
 signals:
     //! \~russian Сигнал, испускаемый для обновления таблицы atlas.history отображаемой в виджете \~russian
     void updateHistoryTable();
+    void addRowinHistoryTable(int id, QString& request);
 
 public slots:
     //! \~russian Отвечает за фильтрацию таблицы по полю "Понятие"
