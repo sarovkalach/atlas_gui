@@ -14,10 +14,10 @@ NoteWidget::NoteWidget(QWidget *pwgt): QWidget(pwgt) {
 
     noteNameLineEdit = new QLineEdit;
     noteContentLineEdit = new QLineEdit;
-    noteContentLabel = new QLabel;
+    noteContentLabel= new QLabel;
     noteContentLabel->setText(tr("Content"));
     noteNameLabel = new QLabel;
-    noteContentLabel->setText(tr("Name"));
+    noteNameLabel->setText(tr("Name"));
 
     insertButton = new QPushButton;
     insertButton->setText(tr("Insert"));
@@ -26,10 +26,10 @@ NoteWidget::NoteWidget(QWidget *pwgt): QWidget(pwgt) {
 
     gridLayout = new QGridLayout;
     gridLayout->addWidget(noteView,0,0,1,2);
-    gridLayout->addWidget(noteNameLabel,1,0);
-    gridLayout->addWidget(noteContentLabel,1,1);
-    gridLayout->addWidget(noteNameLineEdit,2,0);
-    gridLayout->addWidget(noteContentLineEdit,2,1);
+    gridLayout->addWidget(noteContentLabel,1,0);
+    gridLayout->addWidget(noteNameLabel,1,1);
+    gridLayout->addWidget(noteNameLineEdit,2,1);
+    gridLayout->addWidget(noteContentLineEdit,2,0);
     gridLayout->addWidget(insertButton,3,0);
     gridLayout->addWidget(deleteButton,3,1);
 
@@ -90,8 +90,8 @@ void NoteWidget::showNoteTable(const int &owner) {
 
     queryModel.setQuery(query);
     queryModel.setHeaderData(0, Qt::Horizontal,tr("Name"));
-    queryModel.setHeaderData(1, Qt::Horizontal,tr("Date"));
-    queryModel.setHeaderData(2, Qt::Horizontal,tr("Content"));
+    queryModel.setHeaderData(1, Qt::Horizontal,tr("Content"));
+    queryModel.setHeaderData(2, Qt::Horizontal,tr("Date"));
 
     noteView->setModel(&queryModel);
 
