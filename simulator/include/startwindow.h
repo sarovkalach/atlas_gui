@@ -44,6 +44,7 @@ public:
 public slots:
    //! \~russian Метод, устанавливающий язык приложения \~russian
     void setLanguage(const QString);
+    //! \~russian Метод отвечающий за старт приложения(стартует mainWindow)  \~russian
     void startUp();
 
 };

@@ -58,10 +58,15 @@ signals:
 
 
 public slots:
+    //! \~russian Метод отвечающий за проверку пользователя  \~russian
     void loginUser();
+    //! \~russian Метод отвечающий за прориосвку главного окна  \~russian
     void showWidget();
+    //! \~russian Метод отвечающий за прориосвку главного окна  \~russian
     void showWidget(const QString& hash, const QString& name);
+    //! \~russian Метод отвечающий за закрытие окна авторизации  \~russian
     void closeLoginDialog();
+    //! \~russian Метод отвечающий за визуализации ошибки при аторизации пользователя  \~russian
     void showLoginError();
 };
 

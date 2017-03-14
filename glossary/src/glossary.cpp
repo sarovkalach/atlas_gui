@@ -27,10 +27,6 @@ Glossary::Glossary(QWidget *pwgt) : QWidget(pwgt) {
 
 }
 
-void Glossary::closeEvent(QCloseEvent *event) {
-     event->accept();
-     delete this;
-}
 
 void Glossary::updateWidget() {
     this->update();

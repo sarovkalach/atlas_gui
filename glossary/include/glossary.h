@@ -26,13 +26,10 @@ private:
     QHBoxLayout*    horizontalLayout;
     QGridLayout*    totalGrid;
 
-
-
 public:
     //! \~russian Деструктор класса. \details \~russian
     Glossary(QWidget * pwgt = 0);
     ~Glossary();
-    void closeEvent(QCloseEvent *event);
 
     HistoryWidget*  historyWidget;
     NoteWidget*     noteWidget;

@@ -42,15 +42,18 @@ private:
 
 
 public:
-    //! \~russian Конструктор класса. \details \~russian Располагает в своей рабочей области таблицу и поле для фильрации.
+    //! \~russian Конструктор класса \~russian
     GlossaryWidget(QWidget * pwgt = 0);
+    //! \~russian Деструктор класса \~russian
     ~GlossaryWidget();
+    //! \~russian Метод для установления закрытого поля id \~russian
     void setOwner(int id);
     HistoryWidget* historyWidget;
 
 signals:
     //! \~russian Сигнал, испускаемый для обновления таблицы atlas.history отображаемой в виджете \~russian
     void updateHistoryTable();
+    //! \~russian Сигнал, испускаемый для вставки строки в таблицу atlas.history отображаемой в виджете \~russian
     void addRowinHistoryTable(int id, QString& request);
 
 public slots:
