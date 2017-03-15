@@ -1,0 +1,7 @@
+GUI.pro.user
+build-glossary-Desktop_Qt_5_7_1_GCC_64bit-Debug/
+build-integrator-Desktop_Qt_5_7_1_GCC_64bit-Debug/
+build-simulator-Desktop_Qt_5_7_1_GCC_64bit-Debug/
+glossary/glossary.pro.user
+integrator/integrator.pro.user
+simulator/simulator.pro.user

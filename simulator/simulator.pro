@@ -47,3 +47,6 @@ SOURCES += src/main.cpp \
 
 TRANSLATIONS += languges/main_ru.ts \
                 languges/main_en.ts
+
+RESOURCES += \
+    translations.qrc
