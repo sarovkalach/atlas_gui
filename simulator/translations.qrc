@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+		<file alias="main_en.qm">res/main_en.qm</file>
+		<file alias="main_en.ts">res/main_en.ts</file>
+		<file alias="main_ru.qm">res/main_ru.qm</file>
+		<file alias="main_ru.ts">res/main_ru.ts</file>
+    </qresource>
+</RCC>
