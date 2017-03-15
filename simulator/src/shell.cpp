@@ -5,7 +5,7 @@ SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
     mL_ = new QVBoxLayout;
 
     buttonLayout_ = new QHBoxLayout;
-    openFileButton_ = new QPushButton("Open in-file...");
+	openFileButton_ = new QPushButton(tr("Open in-file..."));
     inFileLab_ = new QLineEdit("");
     inFileLab_->setReadOnly(true);
 
@@ -31,7 +31,7 @@ bool SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename
 		fout.open(filename.toStdString().c_str(), ios::out);
 		if (!fout.is_open()){			//не можем создать файл, т.к., скорее всего, нет либо прав доступа, либо нет папки, в которой файл должен лежать.
 			fttw::print_mistakeLite(fttw::toStr(__FUNCTION__)+"(const QString&)", __LINE__, __FILE__, "Can\'t create file with name:\n" + filename.toStdString() + "\nmay be you forgot to create folders?\n");
-			QMessageBox::warning(0, "Attention", "Can\'t create file with name:\n" + filename + "\nmay be you forgot to create folders or you have no permission to create file in this folder?");
+			QMessageBox::warning(0, tr("Attention"), tr("Can\'t create file with name:\n" + filename + "\nmay be you forgot to create folders or you have no permission to create file in this folder?"));
 			return false;
 		}
 
