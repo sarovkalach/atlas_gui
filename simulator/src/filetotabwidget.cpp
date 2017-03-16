@@ -726,9 +726,9 @@ void fttw::OutSideWidget::init(){
 	setLayout(mL_);
 	setFrameStyle(NoFrame);
 
-	saveButton_ = new QPushButton("&Save");
-	reloadButton_ = new QPushButton("&Reload");
-	toTextEditorButton_ = new QPushButton("&Text Editor");
+	saveButton_ = new QPushButton(tr("&Save"));
+	reloadButton_ = new QPushButton(tr("&Reload"));
+	toTextEditorButton_ = new QPushButton(tr("&Text Editor"));
 
 	mL_->addWidget(fttw_);
 	mL_->addWidget(toTextEditorButton_);
