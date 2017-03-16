@@ -24,29 +24,52 @@
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="31"/>
+        <location filename="../src/mainwindow.cpp" line="32"/>
         <source>User</source>
         <translation>User</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="35"/>
+        <location filename="../src/mainwindow.cpp" line="36"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="41"/>
+        <location filename="../src/mainwindow.cpp" line="42"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="43"/>
+        <location filename="../src/mainwindow.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="58"/>
+        <location filename="../src/mainwindow.cpp" line="60"/>
         <source>Save session</source>
         <translation>Save session</translation>
+    </message>
+</context>
+<context>
+    <name>SimpleArtificialShell</name>
+    <message>
+        <location filename="../src/shell.cpp" line="8"/>
+        <source>Open in-file...</source>
+        <translation>Open in-file...</translation>
+    </message>
+    <message>
+        <location filename="../src/shell.cpp" line="34"/>
+        <source>Attention</source>
+        <translation>Attention</translation>
+    </message>
+    <message>
+        <location filename="../src/shell.cpp" line="34"/>
+        <source>Can&apos;t create file with name:</source>
+        <translation>Can&apos;t create file with name:</translation>
+    </message>
+    <message>
+        <location filename="../src/shell.cpp" line="34"/>
+        <source>may be you forgot to create folders or you have no permission to create file in this folder?</source>
+        <translation>may be you forgot to create folders or you have no permission to create file in this folder?</translation>
     </message>
 </context>
 <context>
@@ -113,6 +136,24 @@
         <location filename="../src/userwidget.cpp" line="16"/>
         <source>Filter</source>
         <translation>Filter</translation>
+    </message>
+</context>
+<context>
+    <name>fttw::OutSideWidget</name>
+    <message>
+        <location filename="../src/filetotabwidget.cpp" line="729"/>
+        <source>&amp;Save</source>
+        <translation>&amp;Save</translation>
+    </message>
+    <message>
+        <location filename="../src/filetotabwidget.cpp" line="730"/>
+        <source>&amp;Reload</source>
+        <translation>&amp;Reload</translation>
+    </message>
+    <message>
+        <location filename="../src/filetotabwidget.cpp" line="731"/>
+        <source>&amp;Text Editor</source>
+        <translation>&amp;Text Editor</translation>
     </message>
 </context>
 </TS>

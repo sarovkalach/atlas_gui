@@ -24,29 +24,52 @@
         <translation>Помощь</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="31"/>
+        <location filename="../src/mainwindow.cpp" line="32"/>
         <source>User</source>
         <translation>Пользователь</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="35"/>
+        <location filename="../src/mainwindow.cpp" line="36"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="41"/>
+        <location filename="../src/mainwindow.cpp" line="42"/>
         <source>Ok</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="43"/>
+        <location filename="../src/mainwindow.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="58"/>
+        <location filename="../src/mainwindow.cpp" line="60"/>
         <source>Save session</source>
         <translation>Сохранить сессию</translation>
+    </message>
+</context>
+<context>
+    <name>SimpleArtificialShell</name>
+    <message>
+        <location filename="../src/shell.cpp" line="8"/>
+        <source>Open in-file...</source>
+        <translation>Открыть файл...</translation>
+    </message>
+    <message>
+        <location filename="../src/shell.cpp" line="34"/>
+        <source>Attention</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <location filename="../src/shell.cpp" line="34"/>
+        <source>Can&apos;t create file with name:</source>
+        <translation>Не влзможно создать новый файл:</translation>
+    </message>
+    <message>
+        <location filename="../src/shell.cpp" line="34"/>
+        <source>may be you forgot to create folders or you have no permission to create file in this folder?</source>
+        <translation>Может быть Вы забыли создать директорию или у Вас нет прав на создание этой директории?</translation>
     </message>
 </context>
 <context>
@@ -113,6 +136,24 @@
         <location filename="../src/userwidget.cpp" line="16"/>
         <source>Filter</source>
         <translation>Фильтр</translation>
+    </message>
+</context>
+<context>
+    <name>fttw::OutSideWidget</name>
+    <message>
+        <location filename="../src/filetotabwidget.cpp" line="729"/>
+        <source>&amp;Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <location filename="../src/filetotabwidget.cpp" line="730"/>
+        <source>&amp;Reload</source>
+        <translation>Перезагрузить</translation>
+    </message>
+    <message>
+        <location filename="../src/filetotabwidget.cpp" line="731"/>
+        <source>&amp;Text Editor</source>
+        <translation>Текстовый редактор</translation>
     </message>
 </context>
 </TS>
