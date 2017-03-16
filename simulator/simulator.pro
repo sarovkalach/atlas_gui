@@ -27,7 +27,8 @@ HEADERS += include/mainwindow.h \
     include/simulatorstarter.h \
     include/filetotabwidget.h \
     include/printelement.h \
-    include/shell.h
+    include/shell.h \
+    include/progressbar.h
 
 FORMS += ui/mainwindow.ui
 
@@ -44,6 +45,7 @@ SOURCES += src/main.cpp \
     src/filetotabwidget.cpp \
     src/printelement.cpp \
     src/shell.cpp \
+    src/progressbar.cpp
 
 TRANSLATIONS += languges/main_ru.ts \
                 languges/main_en.ts

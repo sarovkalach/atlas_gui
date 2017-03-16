@@ -54,6 +54,10 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     this->setLayout(modellingVLayout);
     shell->setParent(this);
 
+	progressBar_ = new ProgressBar(processID_);
+	modellingVLayout->addWidget(progressBar_);
+
+
     //connect(line, SIGNAL(textEdited(QString)), this, SLOT(enableButtons(QString)));
     connect(shell->get_inFileLineEditor(), SIGNAL(textChanged(QString)), this, SLOT(enableButtons(QString)));
 }
@@ -67,14 +71,25 @@ void SimulatorWidget::updateWidget() {
 
 
 void SimulatorWidget::startExpirement() {
+	//получить id
+	//...
+
+	//запустить симулятор
     qDebug() << "Start Experiment";
     simulator->start("/home/kalach/test_start.sh");
+
+	//запустить обновление БД и показать QProgressBar
+	progressBar_->setTimerInterval(5000);
+	progressBar_->initTimer();
 }
 
 void SimulatorWidget::stopExperiment() {
     qDebug() << "Stop Experiment";
     simulator->close();
     showModellingtableModel(owner);
+
+	//остановить обновление БД и скрыть QProgressBar
+	progressBar_->deleteTimer();
 }
 
 void SimulatorWidget::insertRow()
@@ -94,6 +109,11 @@ void SimulatorWidget::insertRow()
     query.exec();
 
     showModellingtableModel(owner);
+
+	processID_ = query.lastInsertId().toString();
+	qDebug()<<"Last insert id = "<<processID_;
+	progressBar_->updateProgressBar();
+
 }
 
 void SimulatorWidget::showModellingtableModel(const int idOwner)
