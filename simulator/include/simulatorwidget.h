@@ -26,6 +26,7 @@
 #include "simulatortablemodel.h"
 #include "simulatorstarter.h"
 #include "shell.h"
+#include "progressbar.h"
 
 /*!
  *  \~russian \brief Виджет для работы с таблицей "Моделирование" сверхбольшого высокодоступного цифрового каталога данных (Каталога). Явялется составялющей частью копоненты 3d Атласа "Глоссарий"
@@ -59,8 +60,11 @@ private:
     SimpleArtificialShell*  shell;
     SimulatorStarter*       simulator;
 
+	ProgressBar* progressBar_;
+
     int owner;
     int id;
+	QString processID_;
 
 public:
     //! \~russian Конструктор класса. \details \~russian
