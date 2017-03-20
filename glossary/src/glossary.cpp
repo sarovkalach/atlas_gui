@@ -29,7 +29,7 @@ Glossary::Glossary(QWidget *pwgt) : QWidget(pwgt) {
 
 
 void Glossary::updateWidget() {
-    this->update();
+//    this->update();
     this->show();
 }
 

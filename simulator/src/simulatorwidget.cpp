@@ -18,26 +18,26 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     modellingVLayout = new QVBoxLayout;
     modellingHLayout = new QHBoxLayout;
     buttonsLayout = new QHBoxLayout;
-    modellingComboBox = new QComboBox;
+	modellingComboBox = new QComboBox;
     editConfigButton = new QPushButton;
     startButton = new QPushButton;
     startButton->setDisabled(true);
     stopButton = new QPushButton;
     stopButton->setDisabled(true);
-    simulatorTable = new QSqlRelationalTableModel;
-    simulatorTable->setTable("atlas.simulator");
-    simulatorTable->select();
+	simulatorTable = new QSqlRelationalTableModel;
+	simulatorTable->setTable("atlas.simulator");
+	simulatorTable->select();
 
     modellingLabel->setText(tr("Set simulator"));
     editConfigButton->setText(tr("Notepad"));
     startButton->setText(tr("Start"));
     stopButton->setText(tr("Stop"));
 
-    for (int i=0; i < simulatorTable->rowCount(); i++ )
-         modellingComboBox->addItem(simulatorTable->data(simulatorTable->index(i,2)).toString());
+	for (int i=0; i < simulatorTable->rowCount(); i++ )
+		 modellingComboBox->addItem(simulatorTable->data(simulatorTable->index(i,2)).toString());
 
     modellingVLayout->addWidget(modellingLabel);
-    modellingVLayout->addWidget(modellingComboBox);
+	modellingVLayout->addWidget(modellingComboBox);
 
     modellingVLayout->addLayout(modellingHLayout);
     buttonsLayout->addWidget(startButton);
@@ -47,7 +47,7 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
     modellingVLayout->addWidget(shell);
     modellingVLayout->addWidget(view);
     shell->hide();
-    connect(startButton, SIGNAL(clicked(bool)), this, SLOT(startExpirement()));
+//    connect(startButton, SIGNAL(clicked(bool)), this, SLOT(startExpirement()));
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(insertRow()));
     connect(editConfigButton,SIGNAL(clicked(bool)), this,SLOT(openNotepad()));
     connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stopExperiment()));
@@ -65,7 +65,6 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
 
 
 void SimulatorWidget::updateWidget() {
-    this->update();
     this->show();
 }
 
@@ -76,7 +75,7 @@ void SimulatorWidget::startExpirement() {
 
 	//запустить симулятор
     qDebug() << "Start Experiment";
-    simulator->start("/home/kalach/test_start.sh");
+	simulator->start("/home/kalach/test_start.sh " + processID_);
 
 	//запустить обновление БД и показать QProgressBar
 	progressBar_->setTimerInterval(5000);
@@ -114,6 +113,7 @@ void SimulatorWidget::insertRow()
 	qDebug()<<"Last insert id = "<<processID_;
 	progressBar_->updateProgressBar();
 
+	startExpirement();
 }
 
 void SimulatorWidget::showModellingtableModel(const int idOwner)
@@ -135,9 +135,7 @@ void SimulatorWidget::showModellingtableModel(const int idOwner)
 
     view->setModel(model);
     view->hideColumn(0);
-    view->hideColumn(1);
-
-    this->update();
+	view->hideColumn(1);
 }
 
 

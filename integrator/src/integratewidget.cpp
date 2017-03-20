@@ -62,7 +62,6 @@ IntegrateWidget::IntegrateWidget(QWidget* pwgt) : QWidget(pwgt)
 
 
 void IntegrateWidget::updateWidget() {
-    this->update();
     this->show();
 }
 
@@ -109,9 +108,7 @@ void IntegrateWidget::showIntegrateTableModel(const int idOwner)
 
     view->setModel(model);
     view->hideColumn(0);
-    view->hideColumn(1);
-
-    this->update();
+	view->hideColumn(1);
 }
 
 
