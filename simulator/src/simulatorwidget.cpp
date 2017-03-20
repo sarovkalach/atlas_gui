@@ -60,6 +60,11 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
 
     //connect(line, SIGNAL(textEdited(QString)), this, SLOT(enableButtons(QString)));
     connect(shell->get_inFileLineEditor(), SIGNAL(textChanged(QString)), this, SLOT(enableButtons(QString)));
+
+	timerForUpdateTable_ = new QTimer;
+	timerForUpdateTable_->setInterval(updateInterval_);
+	connect(timerForUpdateTable_, SIGNAL(timeout()), model, SLOT(select()));
+	timerForUpdateTable_->start();
 }
 
 
@@ -78,7 +83,7 @@ void SimulatorWidget::startExpirement() {
 	simulator->start("/home/kalach/test_start.sh " + processID_);
 
 	//запустить обновление БД и показать QProgressBar
-	progressBar_->setTimerInterval(5000);
+	progressBar_->setTimerInterval(updateInterval_);
 	progressBar_->initTimer();
 }
 
