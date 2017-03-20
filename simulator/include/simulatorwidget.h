@@ -60,7 +60,10 @@ private:
     SimpleArtificialShell*  shell;
     SimulatorStarter*       simulator;
 
-	ProgressBar* progressBar_;
+	ProgressBar* progressBar_ {Q_NULLPTR};
+	QTimer* timerForUpdateTable_ {Q_NULLPTR};
+	//! Время в миллисекундах, через которое обновляется таблица и строка прогресса.
+	int updateInterval_ {5000};
 
     int owner;
     int id;
@@ -69,6 +72,11 @@ private:
 public:
     //! \~russian Конструктор класса. \details \~russian
     SimulatorWidget(QWidget* pwgt = 0);
+
+	//! Функция устанавливает время в миллисекундах, через которое обновляется таблица и строка прогресса. \details Изменяет приватное поле updateInterval_.
+	void setUpdateInterval(int updateInterval) { updateInterval_ = updateInterval; }
+	//! Функция возвращает время в миллисекундах, через которое обновляется таблица и строка прогресса. \details Читает приватное поле updateInterval_.
+	const int& getUpdateInterval() const { return updateInterval_; }
 
 signals:
     //! \~russian Сигнал, испускаемый для открытия файла конфигурации \~russian
