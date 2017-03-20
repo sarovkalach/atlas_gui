@@ -14,12 +14,14 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    qDebug() << "Sql Driver" << QSqlDatabase::drivers();
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+  qDebug() << "Sql Driver" << QSqlDatabase::drivers();
+  QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+
 	//db.setHostName("atlas3d.dev.informika.ru");
 	db.setHostName("85.143.2.188");
 	db.setDatabaseName("atlas3d");
 	db.setUserName("atlas3d");
+
 	bool connectioncheck = db.open("atlas3d","");
 
     if (connectioncheck == true){
