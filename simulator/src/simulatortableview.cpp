@@ -1,5 +1,3 @@
 #include "simulatortableview.h"
 
-SimulatorTableView::SimulatorTableView() {
-    ;
-}
+SimulatorTableView::SimulatorTableView() {}

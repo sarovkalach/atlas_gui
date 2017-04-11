@@ -6,7 +6,7 @@
 #ifndef SIMPLEARTIFICIALSHELL200217_GASPARYANMOSES
 #define SIMPLEARTIFICIALSHELL200217_GASPARYANMOSES
 
-#include "filetotabwidget.h"
+#include "../general_gui_files/include/filetotabwidget.h"
 #include <QProcess>
 #include <QFileDialog>
 #include <QMessageBox>

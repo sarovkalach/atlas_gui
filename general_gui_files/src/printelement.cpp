@@ -1,4 +1,4 @@
-#include "printelement.h"
+#include "../general_gui_files/include/printelement.h"
 
 //---------- PrintElement
 

@@ -25,9 +25,9 @@ HEADERS += include/mainwindow.h \
     include/integratetableview.h \
     include/integratewidget.h \
     include/simulatorstarter.h \
-    include/filetotabwidget.h \
     include/printelement.h \
-    include/shell.h
+    include/shell.h \
+    ../general_gui_files/include/filetotabwidget.h
 
 FORMS += ui/mainwindow.ui
 
@@ -41,9 +41,9 @@ SOURCES += src/main.cpp \
     src/integratewidget.cpp \
     src/simulatorstarter.cpp \
     src/integratetablemodel.cpp \
-    src/filetotabwidget.cpp \
     src/printelement.cpp \
     src/shell.cpp \
+    ../general_gui_files/src/filetotabwidget.cpp
 
 TRANSLATIONS += languges/main_ru.ts \
                 languges/main_en.ts

@@ -1,4 +1,4 @@
-#include "filetotabwidget.h"
+#include "../general_gui_files/include/filetotabwidget.h"
 
 //------------------ GLOBAL FUNCTIONS
 

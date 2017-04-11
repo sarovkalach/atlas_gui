@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../general_gui_files/include/shell.h"
 #include "QDebug"
 
 SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
@@ -45,11 +45,10 @@ bool SimpleArtificialShell::checkExistenceAndCreateIfNot(const QString &filename
 
 
 void SimpleArtificialShell::chooseFileForEditing(){
-	QString str = QFileDialog::getSaveFileName(0, "Choose in-file");
+	QString str = QFileDialog::getSaveFileName(Q_NULLPTR, tr("Choose in-file"), defaultDir_);
 	if (checkExistenceAndCreateIfNot(str))
 		inFileLab_->setText(str);
 }
-
 
 void SimpleArtificialShell::openFileForEditing(QString str){
 	if (fileToTab_ != nullptr){

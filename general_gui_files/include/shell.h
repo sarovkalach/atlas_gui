@@ -49,9 +49,11 @@ private:
 	QPushButton *openFileButton_;
     //! Текстовый редактор с именем файла, который сейчас открыт в специальном текстовом редакторе.
     QLineEdit* inFileLab_;
+	//! Папка по умолчанию, которая открывается перед пользователем при нажатии кнопки "Open in-file". Устанавливается внешним виджетом, если нужно.
+	QString defaultDir_;
+
 	//! Проверяет, существует ли файл. Если не существует, то создает новый пустой файл. Если файл создать не удалось, то возвращает false. Во всех остальных случаях возвращает true.
 	bool checkExistenceAndCreateIfNot(const QString& filename) const;
-
 
 public:
 	//! Конструктор.
@@ -76,6 +78,11 @@ public:
 	QLineEdit* get_inFileLineEditor() {return inFileLab_;}
 	//! Возвращает текстовый редактор с именем файла, который открыт сейчас в специальном текстовом редакторе. \details Читает приватное поле inFileLab_. inFileLab_ нельзя менять.
 	const QLineEdit* get_inFileLineEditor() const {return inFileLab_;}
+
+	//! Устанавливает имя папки по умолчанию, открывающейся перед пользователем при нажатии кнопки "Open in-file". \details Изменяет приватное поле defaultDir_.
+	void set_defaultDir(const QString& dirIn) { defaultDir_ = dirIn; }
+	//! Возвращает имя папки по умолчанию, открывающейся перед пользователем при нажатии кнопки "Open in-file". \details Читает приватное поле defaultDir_.
+	const QString& get_defaultDir() const { return defaultDir_; }
 
 private slots:
 	//! Открывает указанный файл с помощью редактора (таблицы/вкладки или текстовый редактор). Не меняет inFileLab_. Вызывается сигналом изменения текста в inFileLab_.
