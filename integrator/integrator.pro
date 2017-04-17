@@ -16,34 +16,32 @@ INCLUDEPATH += ./languages
 INCLUDEPATH += ./ui
 QMAKE_CXX_FLAGS += -std=c++11
 
-HEADERS += include/mainwindow.h \
-           include/startwindow.h \
-           include/usertablemodel.h \
-           include/userview.h \
-           include/userwidget.h \
-    include/integratortablemodel.h \
-    include/integratetableview.h \
-    include/integratewidget.h \
-    include/simulatorstarter.h \
-    include/filetotabwidget.h \
-    include/printelement.h \
-    include/shell.h
+HEADERS += \
+    ../general_gui_files/include/filetotabwidget.h \
+    include/integratormainwindow.h \
+    ../general_gui_files/include/generalwindow.h \
+    ../general_gui_files/include/printelement.h \
+    ../general_gui_files/include/shell.h \
+    ../general_gui_files/include/startwindow.h \
+    ../general_gui_files/include/userrecord.h \
+    include/integratorwidget.h \
+    ../general_gui_files/include/textdialog.h \
+    include/integratorsshworker.h \
+    include/tableintegrelem.h
 
 FORMS += ui/mainwindow.ui
 
 SOURCES += src/main.cpp \
-           src/mainwindow.cpp \
-           src/startwindow.cpp \
-           src/usertablemodel.cpp \
-           src/userview.cpp \
-           src/userwidget.cpp \
-    src/integratetableview.cpp \
-    src/integratewidget.cpp \
-    src/simulatorstarter.cpp \
-    src/integratetablemodel.cpp \
-    src/filetotabwidget.cpp \
-    src/printelement.cpp \
-    src/shell.cpp \
+    ../general_gui_files/src/filetotabwidget.cpp \
+    ../general_gui_files/src/generalwindow.cpp \
+    ../general_gui_files/src/printelement.cpp \
+    ../general_gui_files/src/shell.cpp \
+    ../general_gui_files/src/startwindow.cpp \
+    ../general_gui_files/src/userrecord.cpp \
+    src/integratormainwindow.cpp \
+    src/integratorwidget.cpp \
+    ../general_gui_files/src/textdialog.cpp \
+    src/integratorsshworker.cpp
 
 TRANSLATIONS += languges/main_ru.ts \
                 languges/main_en.ts
