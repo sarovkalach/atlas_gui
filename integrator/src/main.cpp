@@ -1,39 +1,23 @@
 #include <QApplication>
-#include <QMessageBox>
-#include <QTextCodec>
-#include <QtGui>
-#include <QTableView>
-#include <QSqlDatabase>
-#include <QtSql>
-#include <QtSql/QSqlDatabase>
 
-#include "mainwindow.h"
-#include "startwindow.h"
-#include "integratewidget.h"
+#include "../general_gui_files/include/startwindow.h"
+#include "integratormainwindow.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+	QApplication app(argc, argv);
 
-    qDebug() << "Sql Driver" << QSqlDatabase::drivers();
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-	//db.setHostName("atlas3d.dev.informika.ru");
-	db.setHostName("85.143.2.188");
-    db.setDatabaseName("atlas3d");
-    db.setUserName("atlas3d");
-	//db.setPassword("fnkfc3l");
-	//bool connectioncheck = db.open("atlas3d","fnkfc3l");
-	bool connectioncheck = db.open("atlas3d","");
+	int res = StartWindow::createStartWindow(&app);
+	if (res == QDialog::Rejected){
+		app.closeAllWindows();
+		app.exit(0);
+		return 0;
+	}
 
-    if (connectioncheck == true){
-        qDebug() << "Connection to database established." << endl;
-    } else {
-        qDebug() << "Error for database " << db.databaseName() << " :" << db.lastError().text() << endl;
-    }
+	connectToTheDataBase(app);
 
-    StartWindow widget;
-    widget.setApp(&app);
-    widget.show();
+	IntegratorMainWindow mw;
+	mw.show();
 
-    return app.exec();
+	return app.exec();
 }

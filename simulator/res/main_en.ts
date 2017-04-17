@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.1" language="en_US">
 <context>
     <name>MainWindow</name>
     <message>
@@ -11,7 +11,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="7"/>
         <source>&amp;Account</source>
-        <translation>Account</translation>
+        <translation>&amp;Account</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="10"/>

@@ -16,39 +16,40 @@ INCLUDEPATH += ./languages
 INCLUDEPATH += ./ui
 QMAKE_CXX_FLAGS += -std=c++11
 
-HEADERS += include/mainwindow.h \
-           include/startwindow.h \
-           include/usertablemodel.h \
-           include/userview.h \
-           include/userwidget.h \
+HEADERS += \
     include/simulatortablemodel.h \
     include/simulatortableview.h \
     include/simulatorwidget.h \
     include/simulatorstarter.h \
-    include/filetotabwidget.h \
-    include/printelement.h \
-    include/shell.h \
-    include/progressbar.h
+    include/progressbar.h \
+    include/simulatormainwindow.h \
+    ../general_gui_files/include/filetotabwidget.h \
+    ../general_gui_files/include/generalwindow.h \
+    ../general_gui_files/include/printelement.h \
+    ../general_gui_files/include/shell.h \
+    ../general_gui_files/include/startwindow.h \
+    ../general_gui_files/include/userrecord.h \
+    ../general_gui_files/include/textdialog.h
 
 FORMS += ui/mainwindow.ui
 
 SOURCES += src/main.cpp \
-           src/mainwindow.cpp \
-           src/startwindow.cpp \
-           src/usertablemodel.cpp \
-           src/userview.cpp \
-           src/userwidget.cpp \
     src/simulatortablemodel.cpp \
     src/simulatorwidget.cpp \
     src/simulatortableview.cpp \
     src/simulatorstarter.cpp \
-    src/filetotabwidget.cpp \
-    src/printelement.cpp \
-    src/shell.cpp \
-    src/progressbar.cpp
+    src/progressbar.cpp \
+    src/simulatormainwindow.cpp \
+    ../general_gui_files/src/filetotabwidget.cpp \
+    ../general_gui_files/src/generalwindow.cpp \
+    ../general_gui_files/src/printelement.cpp \
+    ../general_gui_files/src/shell.cpp \
+    ../general_gui_files/src/startwindow.cpp \
+    ../general_gui_files/src/userrecord.cpp \
+    ../general_gui_files/src/textdialog.cpp
 
-TRANSLATIONS += languges/main_ru.ts \
-                languges/main_en.ts
+TRANSLATIONS += res/main_ru.ts \
+                res/main_en.ts
 
 RESOURCES += \
     translations.qrc

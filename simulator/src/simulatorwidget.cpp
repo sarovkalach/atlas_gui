@@ -1,66 +1,148 @@
 #include "simulatorwidget.h"
-#include <QDebug>
 
-SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
+// ----------------------------- SimulatorWidget
+
+void SimulatorWidget::setAtlasModellingRelations(){
+	model->setRelation(3, QSqlRelation("atlas.simulator", "id", "name"));
+	QString filter = QString("owner= %1 ").arg(owner);
+	model->setFilter(filter);
+}
+
+void SimulatorWidget::initAtlasModellingModelView(){
+	model = new SimulatorTableModel;
+	view = new SimulatorTableView;
+	view->setEditTriggers(QTableView::NoEditTriggers);  // read only view
+	view->setModel(model);
+	view->horizontalHeader()->setStretchLastSection(true);
+
+	setAtlasModellingRelations();
+
+	model->setHeaderData(2, Qt::Horizontal, tr("Date"));
+	model->setHeaderData(3, Qt::Horizontal, tr("Model Name"));
+	model->setHeaderData(4, Qt::Horizontal, tr("InFile"));
+	model->setHeaderData(5, Qt::Horizontal, tr("OutFile"));
+	model->setHeaderData(6, Qt::Horizontal, tr("Desctiption"));
+	model->setHeaderData(7, Qt::Horizontal, tr("Progress"));
+	model->setHeaderData(8, Qt::Horizontal, tr("SlurmID"));
+	model->setHeaderData(9, Qt::Horizontal, tr("Catalog"));
+
+	view->hideColumn(0);
+	view->hideColumn(1);
+}
+
+void SimulatorWidget::showTextEdit(){
+	TextDialog::createTextDialog(description_ , this);
+}
+
+void SimulatorWidget::startExpirement() {
+	//запустить симулятор
+	qDebug() << "Trying to start Experiment";
+	if (starter_.startSimulator(shell->get_inFileLineEditor()->text(), modellingComboBox->currentText(), description_)){
+
+		//ОТДЕЛЬНО ПРОПИСАТЬ ЗАПУСК НА WINDOWS!
+		//...
+
+		//запустить обновление БД и показать QProgressBar
+		progressBar_->setTimerInterval(updateInterval_);
+		progressBar_->initTimer();
+		showModellingtableModel(owner);
+		description_ = "";
+
+		stopButton->setDisabled(false);
+	}
+}
+
+void SimulatorWidget::showSAH(){
+	if (shell->isVisible()){
+		shell->hide();
+	}
+	else{
+		shell->show();
+	}
+}
+
+void SimulatorWidget::deleteExperiments(){
+	qDebug()<<"I can\'t now delete data of experiments! Define me!!!";
+}
+
+void SimulatorWidget::initButtons(){
+	buttonsLayout = new QHBoxLayout;
+	startButton = new QPushButton;
+	stopButton = new QPushButton;
+	deleteButton_ = new QPushButton;
+	descriptionButton_ = new QPushButton;
+	editConfigButton = new QPushButton;
+
+	startButton->setDisabled(true);
+	stopButton->setDisabled(true);
+
+	startButton->setText(tr("Start"));
+	stopButton->setText(tr("Stop"));
+	deleteButton_->setText(tr("Delete"));
+	descriptionButton_->setText(tr("Set description..."));
+	editConfigButton->setText(tr("Notepad"));
+
+	buttonsLayout->addWidget(startButton);
+	buttonsLayout->addWidget(stopButton);
+	buttonsLayout->addWidget(deleteButton_);
+	buttonsLayout->addWidget(descriptionButton_);
+	buttonsLayout->addWidget(editConfigButton);
+
+	connect(startButton, SIGNAL(clicked()), this, SLOT(startExpirement()));
+	connect(stopButton, SIGNAL(clicked()), this, SLOT(stopExperiment()));
+	connect(deleteButton_, SIGNAL(clicked()), this, SLOT(deleteExperiments()));
+	connect(descriptionButton_, SIGNAL(clicked()), this, SLOT(showTextEdit()));
+	connect(editConfigButton, SIGNAL(clicked()), this, SLOT(showSAH()));
+}
+
+void SimulatorWidget::initAllSimulatorsFromDB(){
+	QSqlRelationalTableModel simulatorTable;
+	modellingComboBox = new QComboBox;
+
+	simulatorTable.setTable("atlas.simulator");
+	simulatorTable.select();
+
+	for (int i=0; i < simulatorTable.rowCount(); i++ )
+		 modellingComboBox->addItem(simulatorTable.data(simulatorTable.index(i,2)).toString());
+
+	modellingComboBox->setCurrentIndex(0);
+}
+
+SimulatorWidget::SimulatorWidget(int ownerIn, QWidget* pwgt) : QWidget(pwgt), owner(ownerIn), starter_(owner)
 {
-    model = new SimulatorTableModel;
-    view = new SimulatorTableView;
-    view->setModel(model);
-    view->setEditTriggers(QTableView::NoEditTriggers);  // read only view
+	shell = new SimpleArtificialShell(this);
+	shell->set_defaultDir(starter_.init());
+	initAtlasModellingModelView();
+	initButtons();
+	initAllSimulatorsFromDB();
 
-    owner = 1;                      // ID from StartWindow
-
-    simulator = new SimulatorStarter;
-    showModellingtableModel(owner);
-    shell = new SimpleArtificialShell;
     modellingLabel = new QLabel;
 
-    modellingVLayout = new QVBoxLayout;
-    modellingHLayout = new QHBoxLayout;
-    buttonsLayout = new QHBoxLayout;
-	modellingComboBox = new QComboBox;
-    editConfigButton = new QPushButton;
-    startButton = new QPushButton;
-    startButton->setDisabled(true);
-    stopButton = new QPushButton;
-    stopButton->setDisabled(true);
-	simulatorTable = new QSqlRelationalTableModel;
-	simulatorTable->setTable("atlas.simulator");
-	simulatorTable->select();
+	progressBar_ = new ProgressBar(processID_);
 
-    modellingLabel->setText(tr("Set simulator"));
-    editConfigButton->setText(tr("Notepad"));
-    startButton->setText(tr("Start"));
-    stopButton->setText(tr("Stop"));
+	modellingLabel->setText(tr("Set simulator"));
 
-	for (int i=0; i < simulatorTable->rowCount(); i++ )
-		 modellingComboBox->addItem(simulatorTable->data(simulatorTable->index(i,2)).toString());
+	modellingVLayout = new QVBoxLayout;
+	splitter_ = new QSplitter;
+
+	splitter_->setOrientation(Qt::Vertical);
+	splitter_->addWidget(shell);
+	splitter_->addWidget(view);
+	splitter_->setStretchFactor(1, 100);
+
 
     modellingVLayout->addWidget(modellingLabel);
 	modellingVLayout->addWidget(modellingComboBox);
-
-    modellingVLayout->addLayout(modellingHLayout);
-    buttonsLayout->addWidget(startButton);
-    buttonsLayout->addWidget(stopButton);
-    buttonsLayout->addWidget(editConfigButton);
-    modellingVLayout->addLayout(buttonsLayout);
-    modellingVLayout->addWidget(shell);
-    modellingVLayout->addWidget(view);
-    shell->hide();
-//    connect(startButton, SIGNAL(clicked(bool)), this, SLOT(startExpirement()));
-    connect(startButton, SIGNAL(clicked(bool)), this, SLOT(insertRow()));
-    connect(editConfigButton,SIGNAL(clicked(bool)), this,SLOT(openNotepad()));
-    connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stopExperiment()));
-    this->setLayout(modellingVLayout);
-    shell->setParent(this);
-
-	progressBar_ = new ProgressBar(processID_);
+	modellingVLayout->addLayout(buttonsLayout);
+	modellingVLayout->addWidget(splitter_);
 	modellingVLayout->addWidget(progressBar_);
+	progressBar_->hide();
+	shell->hide();
 
+	setLayout(modellingVLayout);
 
-    //connect(line, SIGNAL(textEdited(QString)), this, SLOT(enableButtons(QString)));
     connect(shell->get_inFileLineEditor(), SIGNAL(textChanged(QString)), this, SLOT(enableButtons(QString)));
-
+	                //установка таймера для периодического обновления таблицы.
 	timerForUpdateTable_ = new QTimer;
 	timerForUpdateTable_->setInterval(updateInterval_);
 	connect(timerForUpdateTable_, SIGNAL(timeout()), model, SLOT(select()));
@@ -68,98 +150,29 @@ SimulatorWidget::SimulatorWidget(QWidget* pwgt) : QWidget(pwgt)
 }
 
 
-
-void SimulatorWidget::updateWidget() {
-    this->show();
-}
-
-
-void SimulatorWidget::startExpirement() {
-	//получить id
-	//...
-
-	//запустить симулятор
-    qDebug() << "Start Experiment";
-	simulator->start("/home/kalach/test_start.sh " + processID_);
-
-	//запустить обновление БД и показать QProgressBar
-	progressBar_->setTimerInterval(updateInterval_);
-	progressBar_->initTimer();
-}
-
 void SimulatorWidget::stopExperiment() {
-    qDebug() << "Stop Experiment";
-    simulator->close();
-    showModellingtableModel(owner);
+	qDebug() << "Stop Experiment";
 
-	//остановить обновление БД и скрыть QProgressBar
+	showModellingtableModel(owner);
+
+	starter_.cancel();
+
+	//остановить обновление строки прогресса из БД и скрыть QProgressBar
 	progressBar_->deleteTimer();
-}
-
-void SimulatorWidget::insertRow()
-{
-    QDateTime* dateTime = new QDateTime;
-    id = getSimulatorID(modellingComboBox->currentText());
-    qDebug()<< "Simulator ID = " << id;
-
-    query.prepare("INSERT INTO atlas.modelling (owner, beg_date, simulator_id, beg_file, description, progress) VALUES (:owner, :beg_date, :simulator_id, :beg_file, :description, :progress)");//
-
-    query.bindValue(":owner", owner);
-    query.bindValue(":beg_date", dateTime->currentDateTime().toString("MM.dd.yyyy"));
-    query.bindValue(":beg_file", shell->get_inFileLineEditor()->text());
-    query.bindValue(":description", "test");
-    query.bindValue(":progress", 1);
-    query.bindValue(":simulator_id", id);
-    query.exec();
-
-    showModellingtableModel(owner);
-
-	processID_ = query.lastInsertId().toString();
-	qDebug()<<"Last insert id = "<<processID_;
-	progressBar_->updateProgressBar();
-
-	startExpirement();
+	stopButton->setDisabled(true);
 }
 
 void SimulatorWidget::showModellingtableModel(const int idOwner)
-{
-    owner = idOwner;
-    model->setRelation(3, QSqlRelation("atlas.simulator", "id", "name"));
-    QString filter = QString("owner= %1 ").arg(owner);
-    model->setFilter(filter);
+{	
+	if (owner != idOwner){
+		owner = idOwner;
+		qDebug()<<"owner = "<<owner;
+		setAtlasModellingRelations();
+	}
 
-    model->setHeaderData(2, Qt::Horizontal, tr("Date"));
-    model->setHeaderData(3, Qt::Horizontal, tr("Model Name"));
-    model->setHeaderData(4, Qt::Horizontal, tr("BegFile"));
-    model->setHeaderData(5, Qt::Horizontal, tr("Dump"));
-    model->setHeaderData(6, Qt::Horizontal, tr("EndFile"));
-    model->setHeaderData(7, Qt::Horizontal, tr("Desctiption"));
-    model->setHeaderData(8, Qt::Horizontal, tr("Progress"));
-
-    model->select();
-
-    view->setModel(model);
-    view->hideColumn(0);
-	view->hideColumn(1);
+	model->select();
 }
-
-
-int SimulatorWidget::getSimulatorID(QString simulatorName)
-{
-    query.prepare("select * from atlas.simulator WHERE reference=:reference ");//
-    query.bindValue(":reference", simulatorName);
-    query.exec();
-    queryModel.setQuery(query);
-
-    return queryModel.data(queryModel.index(0,0)).toInt();
-}
-
-void SimulatorWidget::openNotepad() {
-    shell->show();
-}
-
 
 void SimulatorWidget::enableButtons(const QString text) {
-    stopButton->setEnabled(true);
     startButton->setEnabled(true);
 }
