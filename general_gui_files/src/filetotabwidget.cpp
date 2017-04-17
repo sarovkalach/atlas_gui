@@ -197,10 +197,6 @@ ostream& fttw::FileToTabWidget::print(ostream& s) const{
 	return s;
 }
 
-ostream& fttw::operator<<(ostream& s, const FileToTabWidget& tw){
-	return tw.print(s);
-}
-
 void fttw::FileToTabWidget::layout_init(){
 	mL_ = new QVBoxLayout;
 	mW_->setLayout(mL_);
@@ -634,12 +630,12 @@ void fttw::FileToTabWidget::createTabsAndGlobalValues(const string &filename){
 }
 
 inline void fttw::FileToTabWidget::load_file(const string &filename){
-	if ((mode_ == Tabs) && check_correct(filename)){
+	if ((mode_ == mode::Tabs) && check_correct(filename)){
 		createTabsAndGlobalValues(filename);
 	}
 	else{
 		createTextEditor(filename);
-		mode_ = TextEditor;
+		mode_ = mode::TextEditor;
 	}
 }
 
@@ -694,7 +690,7 @@ void fttw::OutSideWidget::reload_slot(){
 	mL_->insertWidget(0, fttw_);
 
 	connect(this, SIGNAL(savedata(const string&)), fttw_, SLOT(save_file(const string&)));
-	if (fttw_->getMode() == FileToTabWidget::Tabs){
+	if (fttw_->getMode() == FileToTabWidget::mode::Tabs){
 		toTextEditorButton_->show();
 	}
 	else{
@@ -708,11 +704,11 @@ void fttw::OutSideWidget::toTextEditor(){
 	mL_->removeWidget(fttw_);
 	delete fttw_;
 
-	fttw_ = new FileToTabWidget(loadname_, this, FileToTabWidget::TextEditor);
+	fttw_ = new FileToTabWidget(loadname_, this, FileToTabWidget::mode::TextEditor);
 	mL_->insertWidget(0, fttw_);
 
 	connect(this, SIGNAL(savedata(const string&)), fttw_, SLOT(save_file(const string&)));
-	if (fttw_->getMode() == FileToTabWidget::Tabs){
+	if (fttw_->getMode() == FileToTabWidget::mode::Tabs){
 		toTextEditorButton_->show();
 	}
 	else{
@@ -736,11 +732,9 @@ void fttw::OutSideWidget::init(){
 	saveReloadLayout->addWidget(saveButton_);
 	saveReloadLayout->addWidget(reloadButton_);
 	mL_->addLayout(saveReloadLayout);
-//	mL_->addWidget(saveButton_);
-//	mL_->addWidget(reloadButton_);
 
 	connect(toTextEditorButton_, SIGNAL(clicked()), this, SLOT(toTextEditor()));
-	if (fttw_->getMode() == FileToTabWidget::TextEditor)
+	if (fttw_->getMode() == FileToTabWidget::mode::TextEditor)
 		toTextEditorButton_->hide();
 	connect(saveButton_, SIGNAL(clicked()), this, SLOT(savedata_slot()));
 	connect(reloadButton_, SIGNAL(clicked()), this, SLOT(reload_slot()));

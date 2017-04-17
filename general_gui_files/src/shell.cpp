@@ -5,7 +5,7 @@ SimpleArtificialShell::SimpleArtificialShell(QWidget *obj) : QWidget(obj){
     mL_ = new QVBoxLayout;
 
     buttonLayout_ = new QHBoxLayout;
-	openFileButton_ = new QPushButton(tr("Open in-file..."));
+	openFileButton_ = new QPushButton(tr("Open file..."));
     inFileLab_ = new QLineEdit("");
     inFileLab_->setReadOnly(true);
 

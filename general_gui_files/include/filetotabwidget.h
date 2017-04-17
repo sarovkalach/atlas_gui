@@ -169,6 +169,8 @@ private:
 	vector<pair<QLabel*, QLineEdit*> > globalValues_;
 	//! Таблицы с данными. Каждый #data - в файле - это новая таблица (#data Va Vb Vc, 1 2 3, 4 5 6, 7 8 9).
 	vector<QTableWidget*> tables_;
+	//!
+	vector<QTableWidget*> vectors_;
 	//! Главный виджет, на который все накладывается.
 	QFrame *mW_ {nullptr};
 	//! Менеджер размещения для главного виджета mW_.
@@ -179,12 +181,12 @@ private:
 	QTextEdit* unmarkedValues_ {nullptr};
 	//! Специальный выделитель слов в тексте для текстового редактора QTextEdit.
 	HighLightNumbers* textEditorHighLighter_ {nullptr};
-	//! Массив с элементами, у которых вызывается функция для печати. В зависимости от внутренней реализации элемента, печать происходит по-разному. Все таблицы, глобальные переменные, комментарии записываются в этот массив.
+	//! Массив с элементами, у которых вызывается функция для печати. В зависимости от внутренней реализации элемента, печать происходит по-разному. Все таблицы, вектора, глобальные переменные, комментарии записываются в этот массив.
 	vector<PrintElement*> printElements_;
 
 public:
 	//! Тип поведения. Tabs - будет сделана попытка по текстовому файлу создать виджет с таблицами и окошками для глобальных переменных. TextEditor - по файлу будет создан текстовый редактор.
-	enum mode {Tabs, TextEditor};
+	enum class mode : char {Tabs, TextEditor};
 private:
 	//! Значение типа поведения. Может быть задано в конструкторе.
 	mode mode_;
@@ -228,7 +230,7 @@ private:
 
 public:
 	//! Конструктор с именем файла. После основных инициализаций вызывает метод load_file(const string&).
-	explicit FileToTabWidget(const string& filename, QWidget* pwg = nullptr, mode in_mode = Tabs);
+	explicit FileToTabWidget(const string& filename, QWidget* pwg = nullptr, mode in_mode = mode::Tabs);
 	//! Деструктор.
 	~FileToTabWidget() {
 		for(size_t i=0; i<printElements_.size(); ++i){
@@ -250,7 +252,9 @@ public slots:
 	void save_file(const string& filename) const;
 };
 //! Оператор вывода для класса FileToTabWidget. Вызывает внутри себя метод print(ostream&).
-ostream& operator<<(ostream& s, const FileToTabWidget& tw);
+inline ostream& operator<<(ostream& s, const FileToTabWidget& tw){
+	return tw.print(s);
+}
 
 
 

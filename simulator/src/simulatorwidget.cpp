@@ -1,26 +1,5 @@
 #include "simulatorwidget.h"
 
-// ----------------------------- TextDialog
-
-TextDialog::TextDialog(QString &text, QWidget *pwg) : QDialog(pwg), text_(text){
-	mL_ = new QVBoxLayout;
-	editor_ = new QTextEdit;
-	okButton_ = new QPushButton(tr("OK"));
-
-	editor_->setText(text_);
-
-	mL_->addWidget(editor_);
-	mL_->addWidget(okButton_);
-	setLayout(mL_);
-
-	connect(okButton_, SIGNAL(clicked()), this, SLOT(pushOk()));
-}
-
-void TextDialog::pushOk(){
-	text_ = editor_->toPlainText();
-	accept();
-}
-
 // ----------------------------- SimulatorWidget
 
 void SimulatorWidget::setAtlasModellingRelations(){
@@ -82,10 +61,15 @@ void SimulatorWidget::showSAH(){
 	}
 }
 
+void SimulatorWidget::deleteExperiments(){
+	qDebug()<<"I can\'t now delete data of experiments! Define me!!!";
+}
+
 void SimulatorWidget::initButtons(){
 	buttonsLayout = new QHBoxLayout;
 	startButton = new QPushButton;
 	stopButton = new QPushButton;
+	deleteButton_ = new QPushButton;
 	descriptionButton_ = new QPushButton;
 	editConfigButton = new QPushButton;
 
@@ -94,16 +78,19 @@ void SimulatorWidget::initButtons(){
 
 	startButton->setText(tr("Start"));
 	stopButton->setText(tr("Stop"));
+	deleteButton_->setText(tr("Delete"));
 	descriptionButton_->setText(tr("Set description..."));
 	editConfigButton->setText(tr("Notepad"));
 
 	buttonsLayout->addWidget(startButton);
 	buttonsLayout->addWidget(stopButton);
+	buttonsLayout->addWidget(deleteButton_);
 	buttonsLayout->addWidget(descriptionButton_);
 	buttonsLayout->addWidget(editConfigButton);
 
 	connect(startButton, SIGNAL(clicked()), this, SLOT(startExpirement()));
 	connect(stopButton, SIGNAL(clicked()), this, SLOT(stopExperiment()));
+	connect(deleteButton_, SIGNAL(clicked()), this, SLOT(deleteExperiments()));
 	connect(descriptionButton_, SIGNAL(clicked()), this, SLOT(showTextEdit()));
 	connect(editConfigButton, SIGNAL(clicked()), this, SLOT(showSAH()));
 }

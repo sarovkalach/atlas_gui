@@ -25,6 +25,11 @@
  * Схема использования:
  * \code
  *
+ * SimulatorMainWindow* mw = new SimulatorMainWindow;
+ * mw->show();
+ *
+ * delete SimulatorMainWindow;
+ *
  * \endcode
  *
  */
@@ -53,10 +58,11 @@ protected:
 	//! Деструктор.
 	~GeneralWindow() {}
 
+	//! Метод, который вызывается при нажатии в меню кнопки "Login" .
 	virtual void loginUser(bool checkEnterFile) = 0;
 
 protected slots:
-	//! Метод для открытия диалогового окна авторизации.
+	//! Слот для открытия диалогового окна авторизации. Вызывает метод loginUser(bool);
 	void loginUserSlot(bool checkEnterFile = false);
 
 };

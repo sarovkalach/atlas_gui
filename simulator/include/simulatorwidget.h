@@ -29,55 +29,8 @@
 #include "simulatortablemodel.h"
 #include "simulatorstarter.h"
 #include "../general_gui_files/include/shell.h"
+#include "../general_gui_files/include/textdialog.h"
 #include "progressbar.h"
-
-/*! \brief Диалоговое окно текстового редактора.
- *
- * Вызывает диалоговое окно с текстовым редактором (QTextEdit),
- * в котором изначально написан текст, который поступил в качестве
- * аргумента. Его же диалоговое окно и меняет при нажатии на кнопку "OK".
- *
- * Используется внутри SimulatorWidget для добавления описания.
- *
- * Схема использования:
- * \code
- *
- * QString test = "Hello!";
- * TextDialog::createTextDialog(QString& text);
- * qDebug()<<"user entered:";
- * qDebug()<<text;
- *
- * \endcode
- *
- */
-class TextDialog : public QDialog{
-	Q_OBJECT
-protected:
-	//! Текст, который будет изменен при работе данного виджета. Также является входным параметром.
-	QString& text_;
-	//! Главный менеджер размещения.
-	QVBoxLayout* mL_;
-	//! Текстовый редактор
-	QTextEdit* editor_;
-	//! Кнопка "Ок". \details Соединена со слотом pushOk() .
-	QPushButton* okButton_;
-
-	//! Конструктор.
-	explicit TextDialog(QString& text, QWidget* pwg = Q_NULLPTR);
-	//! Деструктор.
-	~TextDialog() {}
-
-public:
-	//! Статическая функция для создания данного диалогового окна.
-	static void createTextDialog(QString& text, QWidget* pwg = Q_NULLPTR){
-		TextDialog tdial(text, pwg);
-		tdial.exec();
-	}
-
-private slots:
-	//! Слот, который сохраняет введенный в текстовом редакторе текст во входную переменную text_, закрывает диалоговое окно.
-	void pushOk();
-};
 
 
 /*!
@@ -127,6 +80,8 @@ private:
 	QPushButton*    startButton;
 	//! Кнопка для остановки работы симулятора. \details Сигнал связан со слотом stopExperiment() .
 	QPushButton*    stopButton;
+	//! Кнопка, при которой удаляется(ются) выделенные пользователем данные из таблицы. Вместе с ними происходит удаление всех .out файлов, созданных теми запусками.
+	QPushButton* deleteButton_;
 	//! Кнопка для вызова диалогового окна с редактором, в который вписывается описание модели. \details Сигнал связан со слотом showTextEdit() .
 	QPushButton*	descriptionButton_;
 	//! Кнопка для показа виджета с редактором (до таблицы). \details Сигнал связан со слотом shell->show() .
@@ -183,6 +138,8 @@ public slots:
     void stopExperiment();
 	//! \~russian Метод отвечающий за запуск симулятора моделирования. Запускает строку прогресса, таймер, связанный с ней, вызывает метод запуска из starter_.
 	void startExpirement();
+	//! Слот, отвечающий за удаление выделенных записей об экспериментах вместе с оставленными ими .out файлами.
+	void deleteExperiments();
 
 	//! Функция делает кнопки "старт" и "стоп" доступными для нажатия. \details Изменяет приватные поля startButton и stopButton .
     void enableButtons(const QString text);

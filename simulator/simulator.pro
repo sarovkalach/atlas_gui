@@ -28,7 +28,8 @@ HEADERS += \
     ../general_gui_files/include/printelement.h \
     ../general_gui_files/include/shell.h \
     ../general_gui_files/include/startwindow.h \
-    ../general_gui_files/include/userrecord.h
+    ../general_gui_files/include/userrecord.h \
+    ../general_gui_files/include/textdialog.h
 
 FORMS += ui/mainwindow.ui
 
@@ -44,7 +45,8 @@ SOURCES += src/main.cpp \
     ../general_gui_files/src/printelement.cpp \
     ../general_gui_files/src/shell.cpp \
     ../general_gui_files/src/startwindow.cpp \
-    ../general_gui_files/src/userrecord.cpp
+    ../general_gui_files/src/userrecord.cpp \
+    ../general_gui_files/src/textdialog.cpp
 
 TRANSLATIONS += res/main_ru.ts \
                 res/main_en.ts
